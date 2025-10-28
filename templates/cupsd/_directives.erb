@@ -15,6 +15,12 @@ DefaultAuthType Basic
 <%= COMMENT_OUT if @log_time_format.nil? -%>LogTimeFormat <%= @log_time_format %>
 <%= COMMENT_OUT if @max_clients.nil? -%>MaxClients <%= @max_clients %>
 <%= COMMENT_OUT if @max_clients_per_host.nil? -%>MaxClientsPerHost <%= @max_clients_per_host %>
+<%= COMMENT_OUT if @max_copies.nil? -%>MaxCopies <%= @max_copies %>
+<%= COMMENT_OUT if @max_hold_time.nil? -%>MaxHoldTime <%= @max_hold_time %>
+<%= COMMENT_OUT if @max_job_time.nil? -%>MaxJobTime <%= @max_job_time %>
+<%= COMMENT_OUT if @max_jobs.nil? -%>MaxJobs <%= @max_jobs %>
+<%= COMMENT_OUT if @max_jobs_per_printer.nil? -%>MaxJobsPerPrinter <%= @max_jobs_per_printer %>
+<%= COMMENT_OUT if @max_jobs_per_user.nil? -%>MaxJobsPerUser <%= @max_jobs_per_user %>
 <%= COMMENT_OUT if @max_log_size.nil? -%>MaxLogSize <%= @max_log_size %>
 <%= COMMENT_OUT if @max_request_size.nil? -%>MaxRequestSize <%= @max_request_size %>
 <%= COMMENT_OUT if @page_log_format.nil? -%>PageLogFormat "<%= @page_log_format %>"

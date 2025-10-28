@@ -60,6 +60,12 @@
 # @param service_manage Whether to manage services at all.
 # @param service_names A name or an array of names of all CUPS services to be managed.
 # @param web_interface Boolean value to enable or disable the server's web interface.
+# @param max_hold_time Specifies the maximum time a job may remain in the "indefinite" hold state before it is canceled.
+# @param max_job_time  Specifies the maximum time a job may take to print before it is canceled.
+# @param max_jobs Specifies the maximum number of simultaneous jobs that are allowed.
+# @param max_jobs_per_printer Specifies the maximum number of simultaneous jobs that are allowed per printer.
+# @param max_copies Specifies the maximum number of copies that a user can print of each job.
+# @param max_jobs_per_user Specifies the maximum number of simultaneous jobs that are allowed per user.
 #
 class cups (
   Optional[String]                         $access_log_level       = undef,
@@ -76,6 +82,12 @@ class cups (
   Optional[Integer]                        $max_clients            = undef,
   Optional[Integer]                        $max_clients_per_host   = undef,
   Optional[Variant[Integer, String]]       $max_log_size           = undef,
+  Optional[Integer]                        $max_hold_time          = undef,
+  Optional[Integer]                        $max_job_time           = undef,
+  Optional[Integer]                        $max_copies             = undef,
+  Optional[Integer]                        $max_jobs               = undef,
+  Optional[Integer]                        $max_jobs_per_printer   = undef,
+  Optional[Integer]                        $max_jobs_per_user      = undef,
   Optional[Integer]                        $max_request_size       = undef,
   String                                   $package_ensure         = 'present',
   Boolean                                  $package_manage         = true,

@@ -397,6 +397,90 @@ RSpec.describe 'cups' do
       end
     end
 
+    describe 'max_hold_time' do
+      let(:facts) { any_supported_os }
+
+      context 'when not set' do
+        it { is_expected.not_to contain_file('/etc/cups/cupsd.conf').with(content: %r{^MaxHoldTime}) }
+      end
+
+      context 'when set to 200' do
+        let(:params) { { max_hold_time: 200 } }
+
+        it { is_expected.to contain_file('/etc/cups/cupsd.conf').with(content: %r{^MaxHoldTime 200$}) }
+      end
+    end
+
+    describe 'max_job_time' do
+      let(:facts) { any_supported_os }
+
+      context 'when not set' do
+        it { is_expected.not_to contain_file('/etc/cups/cupsd.conf').with(content: %r{^MaxJobTime}) }
+      end
+
+      context 'when set to 200' do
+        let(:params) { { max_job_time: 200 } }
+
+        it { is_expected.to contain_file('/etc/cups/cupsd.conf').with(content: %r{^MaxJobTime 200$}) }
+      end
+    end
+
+    describe 'max_jobs' do
+      let(:facts) { any_supported_os }
+
+      context 'when not set' do
+        it { is_expected.not_to contain_file('/etc/cups/cupsd.conf').with(content: %r{^MaxJobs}) }
+      end
+
+      context 'when set to 200' do
+        let(:params) { { max_jobs: 200 } }
+
+        it { is_expected.to contain_file('/etc/cups/cupsd.conf').with(content: %r{^MaxJobs 200$}) }
+      end
+    end
+
+    describe 'max_jobs_per_printer' do
+      let(:facts) { any_supported_os }
+
+      context 'when not set' do
+        it { is_expected.not_to contain_file('/etc/cups/cupsd.conf').with(content: %r{^MaxJobsPerPrinter}) }
+      end
+
+      context 'when set to 200' do
+        let(:params) { { max_jobs_per_printer: 200 } }
+
+        it { is_expected.to contain_file('/etc/cups/cupsd.conf').with(content: %r{^MaxJobsPerPrinter 200$}) }
+      end
+    end
+
+    describe 'max_copies' do
+      let(:facts) { any_supported_os }
+
+      context 'when not set' do
+        it { is_expected.not_to contain_file('/etc/cups/cupsd.conf').with(content: %r{^MaxCopies}) }
+      end
+
+      context 'when set to 200' do
+        let(:params) { { max_copies: 200 } }
+
+        it { is_expected.to contain_file('/etc/cups/cupsd.conf').with(content: %r{^MaxCopies 200$}) }
+      end
+    end
+
+    describe 'max_jobs_per_user' do
+      let(:facts) { any_supported_os }
+
+      context 'when not set' do
+        it { is_expected.not_to contain_file('/etc/cups/cupsd.conf').with(content: %r{^MaxJobsPerUser}) }
+      end
+
+      context 'when set to 200' do
+        let(:params) { { max_jobs_per_user: 200 } }
+
+        it { is_expected.to contain_file('/etc/cups/cupsd.conf').with(content: %r{^MaxJobsPerUser 200$}) }
+      end
+    end
+
     describe 'package_manage' do
       context 'when set to true' do
         context 'with default package_names' do

@@ -66,6 +66,8 @@
 # @param max_jobs_per_printer Specifies the maximum number of simultaneous jobs that are allowed per printer.
 # @param max_copies Specifies the maximum number of copies that a user can print of each job.
 # @param max_jobs_per_user Specifies the maximum number of simultaneous jobs that are allowed per user.
+# @param preserve_job_files Specifies whether job files (documents) are preserved after a job is printed.
+# @param preserve_job_history Specifies  whether  the job history is preserved after a job is printed.
 #
 class cups (
   Optional[String]                         $access_log_level       = undef,
@@ -94,6 +96,8 @@ class cups (
   Variant[String, Array[String]]           $package_names          = $cups::params::package_names,
   Optional[String]                         $page_log_format        = undef,
   Optional[String]                         $papersize              = undef,
+  Optional[Variant[Boolean, Integer]]      $preserve_job_files     = undef,
+  Optional[Variant[Boolean, Integer]]      $preserve_job_history   = undef,
   Boolean                                  $purge_unmanaged_queues = false,
   Optional[Hash]                           $resources              = undef,
   Optional[Variant[String, Array[String]]] $server_alias           = undef,

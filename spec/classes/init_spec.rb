@@ -481,6 +481,58 @@ RSpec.describe 'cups' do
       end
     end
 
+    describe 'preserve_job_files' do
+      let(:facts) { any_supported_os }
+
+      context 'when not set' do
+        it { is_expected.not_to contain_file('/etc/cups/cupsd.conf').with(content: %r{^PreserveJobFiles}) }
+      end
+
+      context 'when set to to numerical value' do
+        let(:params) { { preserve_job_files: 123 } }
+
+        it { is_expected.to contain_file('/etc/cups/cupsd.conf').with(content: %r{^PreserveJobFiles 123$}) }
+      end
+
+      context 'when set to true' do
+        let(:params) { { preserve_job_files: true } }
+
+        it { is_expected.to contain_file('/etc/cups/cupsd.conf').with(content: %r{^PreserveJobFiles Yes$}) }
+      end
+
+      context 'when set to false' do
+        let(:params) { { preserve_job_files: false } }
+
+        it { is_expected.to contain_file('/etc/cups/cupsd.conf').with(content: %r{^PreserveJobFiles No$}) }
+      end
+    end
+
+    describe 'preserve_job_history' do
+      let(:facts) { any_supported_os }
+
+      context 'when not set' do
+        it { is_expected.not_to contain_file('/etc/cups/cupsd.conf').with(content: %r{^PreserveJobHistory}) }
+      end
+
+      context 'when set to to numerical value' do
+        let(:params) { { preserve_job_history: 123 } }
+
+        it { is_expected.to contain_file('/etc/cups/cupsd.conf').with(content: %r{^PreserveJobHistory 123$}) }
+      end
+
+      context 'when set to true' do
+        let(:params) { { preserve_job_history: true } }
+
+        it { is_expected.to contain_file('/etc/cups/cupsd.conf').with(content: %r{^PreserveJobHistory Yes$}) }
+      end
+
+      context 'when set to false' do
+        let(:params) { { preserve_job_history: false } }
+
+        it { is_expected.to contain_file('/etc/cups/cupsd.conf').with(content: %r{^PreserveJobHistory No$}) }
+      end
+    end
+
     describe 'package_manage' do
       context 'when set to true' do
         context 'with default package_names' do

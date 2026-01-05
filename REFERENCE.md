@@ -98,6 +98,8 @@ The following parameters are available in the `cups` class:
 * [`max_jobs_per_printer`](#-cups--max_jobs_per_printer)
 * [`max_copies`](#-cups--max_copies)
 * [`max_jobs_per_user`](#-cups--max_jobs_per_user)
+* [`preserve_job_files`](#-cups--preserve_job_files)
+* [`preserve_job_history`](#-cups--preserve_job_history)
 
 ##### <a name="-cups--access_log_level"></a>`access_log_level`
 
@@ -384,6 +386,22 @@ Default value: `undef`
 Data type: `Optional[Integer]`
 
 Specifies the maximum number of simultaneous jobs that are allowed per user.
+
+Default value: `undef`
+
+##### <a name="-cups--preserve_job_files"></a>`preserve_job_files`
+
+Data type: `Optional[Variant[Boolean, Integer]]`
+
+Specifies whether job files (documents) are preserved after a job is printed.
+
+Default value: `undef`
+
+##### <a name="-cups--preserve_job_history"></a>`preserve_job_history`
+
+Data type: `Optional[Variant[Boolean, Integer]]`
+
+Specifies  whether  the job history is preserved after a job is printed.
 
 Default value: `undef`
 

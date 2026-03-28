@@ -853,5 +853,21 @@ RSpec.describe 'cups' do
         it { is_expected.to contain_file('/etc/cups/cupsd.conf').with(content: %r{^WebInterface No$}) }
       end
     end
+
+    describe 'default_auth_type' do
+      let(:facts) { any_supported_os }
+
+      context 'when not set' do
+        let(:params) { {} }
+
+        it { is_expected.to contain_file('/etc/cups/cupsd.conf').with(content: %r{^DefaultAuthType Basic$}) }
+      end
+
+      context 'when set to Negotiate' do
+        let(:params) { { default_auth_type: 'Negotiate' } }
+
+        it { is_expected.to contain_file('/etc/cups/cupsd.conf').with(content: %r{^DefaultAuthType Negotiate$}) }
+      end
+    end
   end
 end

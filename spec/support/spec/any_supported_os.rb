@@ -8,7 +8,7 @@ def any_supported_os(more_facts = {})
       release: {
         full: '12.0',
         major: '12',
-        minor: '0'
+        minor: '0',
       },
       distro: {
         codename: 'bookworm',
@@ -17,7 +17,7 @@ def any_supported_os(more_facts = {})
         release: {
           full: '12.0',
           major: '12',
-          minor: '0'
+          minor: '0',
         },
       },
     },

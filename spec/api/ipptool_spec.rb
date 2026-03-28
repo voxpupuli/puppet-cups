@@ -8,7 +8,7 @@ end
 
 OS_NAME = fact('os.name')
 OS_RELEASE_FULL = fact('os.release.full')
-DEBIAN_PWG_RASTER_PATCH = (OS_NAME == 'Ubuntu' && ['16.10', '17.04'].include?(OS_RELEASE_FULL))
+DEBIAN_PWG_RASTER_PATCH = OS_NAME == 'Ubuntu' && ['16.10', '17.04'].include?(OS_RELEASE_FULL)
 
 RSpec.describe 'Ipptool' do
   before(:all) do
@@ -627,7 +627,7 @@ RSpec.describe 'Ipptool' do
       add_printers_to_classes(
         'CrawlSpace' => %w[],
         'GroundFloor' => %w[Office Warehouse],
-        'UpperFloor' => %w[BackOffice]
+        'UpperFloor' => %w[BackOffice],
       )
     end
 

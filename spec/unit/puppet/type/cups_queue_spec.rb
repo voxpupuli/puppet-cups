@@ -90,7 +90,7 @@ RSpec.describe "Type 'cups_queue'" do
           let(:manifest) do
             {
               ensure: 'class',
-              name: 'GroundFloor'
+              name: 'GroundFloor',
             }
           end
 
@@ -104,7 +104,7 @@ RSpec.describe "Type 'cups_queue'" do
             {
               ensure: 'class',
               name: 'GroundFloor',
-              members: []
+              members: [],
             }
           end
 
@@ -118,7 +118,7 @@ RSpec.describe "Type 'cups_queue'" do
             {
               ensure: 'class',
               name: 'GroundFloor',
-              members: 'Office'
+              members: 'Office',
             }
           end
 
@@ -132,7 +132,7 @@ RSpec.describe "Type 'cups_queue'" do
             {
               ensure: 'class',
               name: 'GroundFloor',
-              members: %w[Office Warehouse]
+              members: %w[Office Warehouse],
             }
           end
 
@@ -148,7 +148,7 @@ RSpec.describe "Type 'cups_queue'" do
         let(:manifest) do
           {
             ensure: 'printer',
-            name: 'Office'
+            name: 'Office',
           }
         end
 
@@ -162,7 +162,7 @@ RSpec.describe "Type 'cups_queue'" do
           {
             ensure: 'printer',
             name: 'Office',
-            model: 'drv:///sample.drv/generic.ppd'
+            model: 'drv:///sample.drv/generic.ppd',
           }
         end
 
@@ -176,7 +176,7 @@ RSpec.describe "Type 'cups_queue'" do
           {
             ensure: 'printer',
             name: 'Office',
-            ppd: '/usr/share/cups/model/myprinter.ppd'
+            ppd: '/usr/share/cups/model/myprinter.ppd',
           }
         end
 
@@ -190,7 +190,7 @@ RSpec.describe "Type 'cups_queue'" do
       let(:manifest) do
         {
           ensure: 'absent',
-          name: 'Office'
+          name: 'Office',
         }
       end
 
@@ -208,7 +208,7 @@ RSpec.describe "Type 'cups_queue'" do
             ensure: 'printer',
             name: 'Office',
             model: 'drv:///sample.drv/generic.ppd',
-            ppd: '/usr/share/cups/model/myprinter.ppd'
+            ppd: '/usr/share/cups/model/myprinter.ppd',
           }
         end
 
@@ -226,7 +226,7 @@ RSpec.describe "Type 'cups_queue'" do
           ensure: 'class',
           name: 'GroundFloor',
           members: %w[Office Warehouse],
-          model: 'drv:///sample.drv/generic.ppd'
+          model: 'drv:///sample.drv/generic.ppd',
         }
       end
 
@@ -241,7 +241,7 @@ RSpec.describe "Type 'cups_queue'" do
           ensure: 'class',
           name: 'GroundFloor',
           members: %w[Office Warehouse],
-          ppd: '/usr/share/cups/model/myprinter.ppd'
+          ppd: '/usr/share/cups/model/myprinter.ppd',
         }
       end
 
@@ -256,7 +256,7 @@ RSpec.describe "Type 'cups_queue'" do
           ensure: 'class',
           name: 'GroundFloor',
           members: %w[Office Warehouse],
-          make_and_model: 'Local Printer Class'
+          make_and_model: 'Local Printer Class',
         }
       end
 
@@ -271,7 +271,7 @@ RSpec.describe "Type 'cups_queue'" do
           ensure: 'class',
           name: 'GroundFloor',
           members: %w[Office Warehouse],
-          uri: 'lpd://192.168.2.105/binary_p1'
+          uri: 'lpd://192.168.2.105/binary_p1',
         }
       end
 
@@ -286,7 +286,7 @@ RSpec.describe "Type 'cups_queue'" do
           ensure: 'printer',
           name: 'GroundFloor',
           model: 'drv:///sample.drv/generic.ppd',
-          members: %w[Office Warehouse]
+          members: %w[Office Warehouse],
         }
       end
 

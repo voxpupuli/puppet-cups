@@ -245,7 +245,7 @@ Puppet::Type.newtype(:cups_queue) do
         'printer-state' => 'enabled',
         'printer-location' => 'location',
         'printer-is-shared' => 'shared',
-        'device-uri' => 'uri'
+        'device-uri' => 'uri',
       }
 
       value.each_key do |key|

@@ -7,17 +7,13 @@ require 'puppet_x/cups/instances'
 def cups_get_printers(stdout)
   mock_shellout = instance_double(PuppetX::Cups::Shell::ShellOut, stdout: stdout, exitcode: 0)
 
-  allow(PuppetX::Cups::Shell).to receive(:ipptool).
-    with('-c', '/', PuppetX::Cups::Instances.cups_get_printers).
-    and_return(mock_shellout)
+  allow(PuppetX::Cups::Shell).to receive(:ipptool).with('-c', '/', PuppetX::Cups::Instances.cups_get_printers).and_return(mock_shellout)
 end
 
 def cups_get_classes(stdout)
   mock_shellout = instance_double(PuppetX::Cups::Shell::ShellOut, stdout: stdout, exitcode: 0)
 
-  allow(PuppetX::Cups::Shell).to receive(:ipptool).
-    with('-c', '/', PuppetX::Cups::Instances.cups_get_classes).
-    and_return(mock_shellout)
+  allow(PuppetX::Cups::Shell).to receive(:ipptool).with('-c', '/', PuppetX::Cups::Instances.cups_get_classes).and_return(mock_shellout)
 end
 
 RSpec.describe PuppetX::Cups::Instances do
@@ -127,7 +123,7 @@ RSpec.describe PuppetX::Cups::Instances do
         {
           'CrawlSpace' => %w[],
           'GroundFloor' => %w[Office Warehouse],
-          'UpperFloor' => %w[BackOffice]
+          'UpperFloor' => %w[BackOffice],
         }
       end
 

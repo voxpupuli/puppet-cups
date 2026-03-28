@@ -15,7 +15,7 @@ RSpec.describe 'cups' do
         service_enable: 'true',
         service_ensure: 'running',
         service_manage: 'true',
-        service_names: 'cups'
+        service_names: 'cups',
       }
     end
 
@@ -253,9 +253,9 @@ RSpec.describe 'cups' do
               location: {
                 '/endpoint' => {
                   'Directive' => 'option1 option2',
-                  'Key' => 'value'
-                }
-              }
+                  'Key' => 'value',
+                },
+              },
             }
           end
 
@@ -276,9 +276,9 @@ RSpec.describe 'cups' do
               location: {
                 '/' => {
                   'Directive' => 'option1 option2',
-                  'Key' => 'value'
-                }
-              }
+                  'Key' => 'value',
+                },
+              },
             }
           end
 
@@ -586,7 +586,7 @@ RSpec.describe 'cups' do
                 {
                   package_ensure: package_ensure,
                   package_manage: true,
-                  package_names: 'mycupsipp'
+                  package_names: 'mycupsipp',
                 }
               end
 
@@ -604,7 +604,7 @@ RSpec.describe 'cups' do
                 {
                   package_ensure: package_ensure,
                   package_manage: true,
-                  package_names: %w[mycups myipp]
+                  package_names: %w[mycups myipp],
                 }
               end
 
@@ -685,8 +685,8 @@ RSpec.describe 'cups' do
           {
             resources: {
               'BackOffice' => { 'ensure' => 'printer' },
-              'UpperFloor' => { 'ensure' => 'class', 'members' => ['BackOffice'] }
-            }
+              'UpperFloor' => { 'ensure' => 'class', 'members' => ['BackOffice'] },
+            },
           }
         end
 
@@ -710,7 +710,7 @@ RSpec.describe 'cups' do
                       service_enable: service_enable,
                       service_ensure: service_ensure,
                       service_manage: true,
-                      service_names: 'mycups'
+                      service_names: 'mycups',
                     }
                   end
 
@@ -731,7 +731,7 @@ RSpec.describe 'cups' do
                       service_enable: service_enable,
                       service_ensure: service_ensure,
                       service_manage: true,
-                      service_names: %w[mycups mycups-browsed]
+                      service_names: %w[mycups mycups-browsed],
                     }
                   end
 
@@ -764,7 +764,7 @@ RSpec.describe 'cups' do
               {
                 service_ensure: service_ensure,
                 service_manage: false,
-                service_names: 'mycups'
+                service_names: 'mycups',
               }
             end
 

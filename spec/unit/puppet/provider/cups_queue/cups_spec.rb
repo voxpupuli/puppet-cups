@@ -47,8 +47,8 @@ RSpec.describe "Provider 'cups' for type 'cups_queue'" do
         include_examples 'correct instances', [{
           'CrawlSpace' => %w[],
           'GroundFloor' => %w[Office Warehouse],
-          'UpperFloor' => %w[BackOffice]
-        }, %w[BackOffice Office Warehouse]]
+          'UpperFloor' => %w[BackOffice],
+        }, %w[BackOffice Office Warehouse],]
       end
     end
 
@@ -179,7 +179,7 @@ RSpec.describe "Provider 'cups' for type 'cups_queue'" do
     describe 'as raw queue' do
       manifest = {
         ensure: 'printer',
-        name: 'Office'
+        name: 'Office',
       }
 
       include_examples 'provider contract', manifest
@@ -189,7 +189,7 @@ RSpec.describe "Provider 'cups' for type 'cups_queue'" do
       manifest = {
         ensure: 'printer',
         name: 'Office',
-        model: 'drv:///sample.drv/deskjet.ppd'
+        model: 'drv:///sample.drv/deskjet.ppd',
       }
 
       include_examples 'provider contract', manifest
@@ -199,7 +199,7 @@ RSpec.describe "Provider 'cups' for type 'cups_queue'" do
       manifest = {
         ensure: 'printer',
         name: 'Office',
-        ppd: '/usr/share/ppd/cupsfilters/textonly.ppd'
+        ppd: '/usr/share/ppd/cupsfilters/textonly.ppd',
       }
 
       include_examples 'provider contract', manifest
@@ -728,7 +728,7 @@ RSpec.describe "Provider 'cups' for type 'cups_queue'" do
             'PageSize' => 'A4',
             'MediaType' => 'PLAIN',
             'InputSlot' => 'TRAY1',
-            'Duplex' => 'None'
+            'Duplex' => 'None',
           }
         end
 

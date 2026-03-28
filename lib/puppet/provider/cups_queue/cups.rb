@@ -141,7 +141,7 @@ Puppet::Type.type(:cups_queue).provide(:cups) do
   end
 
   def enabled
-    query('printer-state') == 'stopped' ? :false : :true
+    (query('printer-state') == 'stopped') ? :false : :true
   end
 
   def enabled=(value)
@@ -369,7 +369,7 @@ Puppet::Type.type(:cups_queue).provide(:cups) do
   #
   # @yield The command to be executed as root user
   def while_root_allowed
-    acl = (resource.should(:access) || access)
+    acl = resource.should(:access) || access
     debug("CUPS #4781: Temporarily allowing 'root' user to access the queue.")
     self.access = { 'policy' => 'allow', 'users' => ['root'] }
     yield

@@ -100,6 +100,7 @@ The following parameters are available in the `cups` class:
 * [`max_jobs_per_user`](#-cups--max_jobs_per_user)
 * [`preserve_job_files`](#-cups--preserve_job_files)
 * [`preserve_job_history`](#-cups--preserve_job_history)
+* [`default_auth_type`](#-cups--default_auth_type)
 
 ##### <a name="-cups--access_log_level"></a>`access_log_level`
 
@@ -404,6 +405,14 @@ Data type: `Optional[Variant[Boolean, Integer]]`
 Specifies  whether  the job history is preserved after a job is printed.
 
 Default value: `undef`
+
+##### <a name="-cups--default_auth_type"></a>`default_auth_type`
+
+Data type: `Enum['Basic', 'Negotiate']`
+
+
+
+Default value: `'Basic'`
 
 ### <a name="cups--packages"></a>`cups::packages`
 

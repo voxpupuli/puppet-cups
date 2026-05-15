@@ -75,6 +75,7 @@ class cups (
   Optional[Variant[String, Array[String]]] $browse_local_protocols = undef,
   Optional[Boolean]                        $browse_web_if          = undef,
   Boolean                                  $browsing               = false,
+  Enum['Basic', 'Negotiate']               $default_auth_type      = 'Basic',
   Optional[String]                         $default_queue          = undef,
   Variant[String, Array[String]]           $listen                 = ['localhost:631', '/var/run/cups/cups.sock'],
   Optional[Variant[String, Hash]]          $location               = undef,

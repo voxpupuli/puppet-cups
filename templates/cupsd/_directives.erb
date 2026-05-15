@@ -4,7 +4,7 @@
 <%= COMMENT_OUT if @browse_local_protocols.nil? -%>BrowseLocalProtocols <%= @browse_local_protocols.is_a?(Array) ? @browse_local_protocols.join(' ') : @browse_local_protocols %>
 <%= COMMENT_OUT if @browse_web_if.nil? -%>BrowseWebIF <%= (@browse_web_if ? 'Yes' : 'No') %>
 <%= COMMENT_OUT if @browsing.nil? -%>Browsing <%= (@browsing ? 'Yes' : 'No') %>
-DefaultAuthType Basic
+<%= COMMENT_OUT if @default_auth_type.nil? -%>DefaultAuthType <%= @default_auth_type %>
 <% unless @listen.empty? -%>
 <%   [@listen].flatten.each do |l| -%>
 <%=    "Listen #{l}" %>

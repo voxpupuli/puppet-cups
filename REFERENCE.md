@@ -22,6 +22,10 @@
 
 * [`cups_queue`](#cups_queue): Installs and manages CUPS queues.  Printers: Minimal manifest examples      cups_queue { 'MinimalRaw':       ensure => 'printer',       uri  
 
+### Data types
+
+* [`Cups::Directives`](#Cups--Directives): Hash of CUPSd directives
+
 ## Classes
 
 ### <a name="cups"></a>`cups`
@@ -100,6 +104,7 @@ The following parameters are available in the `cups` class:
 * [`max_jobs_per_user`](#-cups--max_jobs_per_user)
 * [`preserve_job_files`](#-cups--preserve_job_files)
 * [`preserve_job_history`](#-cups--preserve_job_history)
+* [`directives`](#-cups--directives)
 
 ##### <a name="-cups--access_log_level"></a>`access_log_level`
 
@@ -402,6 +407,15 @@ Default value: `undef`
 Data type: `Optional[Variant[Boolean, Integer]]`
 
 Specifies  whether  the job history is preserved after a job is printed.
+
+Default value: `undef`
+
+##### <a name="-cups--directives"></a>`directives`
+
+Data type: `Optional[Cups::Directives]`
+
+Hash of config options for directives. Old config options will be merged into the hash and
+will overwrite settings from hash.
 
 Default value: `undef`
 
@@ -739,4 +753,76 @@ The recommended location for your PPD files is `/usr/share/cups/model/` or `/usr
 
 The specific backend to use for this `cups_queue` resource. You will seldom need to specify this --- Puppet will usually
 discover the appropriate provider for your platform.
+
+## Data types
+
+### <a name="Cups--Directives"></a>`Cups::Directives`
+
+Hash of CUPSd directives
+
+Alias of
+
+```puppet
+Struct[{
+  Optional['AccessLogLevel'] => String,
+  Optional['AutoPurgeJobs']  => String,
+  Optional['BrowseDNSSDSubTypes_'] => String,
+  Optional['BrowseIPPSOnly'] => String,
+  Optional['BrowseLocalProtocols'] => String,
+  Optional['BrowseWebIF'] => String,
+  Optional['Browsing'] => String,
+  Optional['DefaultAuthType'] => String,
+  Optional['DefaultEncryption'] => String,
+  Optional['DefaultLanguage'] => String,
+  Optional['DefaultPaperSize'] => String,
+  Optional['DefaultPolicy'] => String,
+  Optional['DefaultShared'] => String,
+  Optional['DirtyCleanInterval'] => String,
+  Optional['DNSSDComputerName'] => String,
+  Optional['DNSSDHostName'] => String,
+  Optional['ErrorPolicy'] => String,
+  Optional['FilterLimit'] => String,
+  Optional['FilterNice'] => String,
+  Optional['HostNameLookups'] => String,
+  Optional['IdleExitTimeout'] => String,
+  Optional['JobKillDelay'] => String,
+  Optional['JobRetryInterval'] => String,
+  Optional['JobRetryLimit'] => String,
+  Optional['KeepAlive'] => String,
+  Optional['LimitRequestBody'] => String,
+  Optional['Listen'] => String,
+  Optional['LogDebugHistory'] => String,
+  Optional['LogLevel'] => String,
+  Optional['LogTimeFormat'] => String,
+  Optional['MaxClients'] => String,
+  Optional['MaxClientsPerHost'] => String,
+  Optional['MaxCopies'] => String,
+  Optional['MaxHoldTime'] => String,
+  Optional['MaxJobs'] => String,
+  Optional['MaxJobsPerPrinter'] => String,
+  Optional['MaxJobsPerUser'] => String,
+  Optional['MaxJobTime'] => String,
+  Optional['MaxLogSize'] => String,
+  Optional['MaxSubscriptions'] => String,
+  Optional['MaxSubscriptionsPerJob'] => String,
+  Optional['MaxSubscriptionsPerPrinter'] => String,
+  Optional['MaxSubscriptionsPerUser'] => String,
+  Optional['MultipleOperationTimeout'] => String,
+  Optional['Port'] => String,
+  Optional['PreserveJobFiles'] => String,
+  Optional['PreserveJobHistory'] => String,
+  Optional['ReadyPaperSizes'] => String,
+  Optional['ReloadTimeout'] => String,
+  Optional['ServerAdmin'] => String,
+  Optional['ServerAlias'] => String,
+  Optional['ServerName'] => String,
+  Optional['ServerTokens'] => String,
+  Optional['SSLListen'] => String,
+  Optional['SSLOptions'] => String,
+  Optional['SSLPort'] => String,
+  Optional['StrictConformance'] => String,
+  Optional['Timeout'] => String,
+  Optional['WebInterface'] => String,
+}]
+```
 

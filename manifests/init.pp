@@ -68,6 +68,8 @@
 # @param max_jobs_per_user Specifies the maximum number of simultaneous jobs that are allowed per user.
 # @param preserve_job_files Specifies whether job files (documents) are preserved after a job is printed.
 # @param preserve_job_history Specifies  whether  the job history is preserved after a job is printed.
+# @param directives Hash of config options for directives. Old config options will be merged into the hash and
+#   will overwrite settings from hash.
 #
 class cups (
   Optional[String]                         $access_log_level       = undef,
@@ -107,6 +109,7 @@ class cups (
   Boolean                                  $service_manage         = true,
   Variant[String, Array[String]]           $service_names          = 'cups',
   Optional[Boolean]                        $web_interface          = undef,
+  Optional[Cups::Directives]               $directives             = undef,
 ) inherits cups::params {
   contain cups::packages
   contain cups::server

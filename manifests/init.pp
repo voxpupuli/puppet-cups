@@ -68,8 +68,8 @@
 # @param max_jobs_per_user Specifies the maximum number of simultaneous jobs that are allowed per user.
 # @param preserve_job_files Specifies whether job files (documents) are preserved after a job is printed.
 # @param preserve_job_history Specifies  whether  the job history is preserved after a job is printed.
-# @param directives Hash of config options for directives. Old config options will be merged into the hash and
-#   will overwrite settings from hash.
+# @param directives Hash of config options for directives. Legacy directives options will be merged into the
+#   hash and will overwrite settings from directives hash.
 #
 class cups (
   Optional[String]                         $access_log_level       = undef,
@@ -111,6 +111,36 @@ class cups (
   Optional[Boolean]                        $web_interface          = undef,
   Optional[Cups::Directives]               $directives             = undef,
 ) inherits cups::params {
+  $legacy_directives_hash = {
+    'AccessLogLevel'       => $access_log_level,
+    'BrowseDNSSDSubTypes_' => $browse_dnssd_subtypes,
+    'BrowseLocalProtocols' => $browse_local_protocols,
+    'BrowseWebIF'          => $browse_web_if,
+    'Browsing'             => $browsing,
+    'Listen'               => $listen,
+    'LogDebugHistory'      => $log_debug_history,
+    'LogLevel'             => $log_level,
+    'LogTimeFormat'        => $log_time_format,
+    'MaxClients'           => $max_clients,
+    'MaxClientsPerHost'    => $max_clients_per_host,
+    'MaxLogSize'           => $max_log_size,
+    'MaxHoldTime'          => $max_hold_time,
+    'MaxJobTime'           => $max_job_time,
+    'MaxCopies'            => $max_copies,
+    'MaxJobs'              => $max_jobs,
+    'MaxJobsPerPrinter'    => $max_jobs_per_printer,
+    'MaxJobsPerUser'       => $max_jobs_per_user,
+    'MaxRequestSize'       => $max_request_size, # deprecated?
+    'PageLogFormat'        => $page_log_format, # deprecated
+    'PreserveJobFiles'     => $preserve_job_files,
+    'PreserveJobHistory'   => $preserve_job_history,
+    'ServerAlias'          => $server_alias,
+    'ServerName'           => $server_name,
+    'WebInterface'         => $web_interface,
+  }.delete_undef_values()
+
+  $active_directives = $directives.merge($legacy_directives_hash).delete_undef_values()
+
   contain cups::packages
   contain cups::server
   contain cups::queues

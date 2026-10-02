@@ -23,7 +23,7 @@
 <%     when 'Browsing' -%>
 <%=      COMMENT_OUT if value.nil? -%>Browsing <%= (value ? 'Yes' : 'No') %>
 <%     when 'Listen' -%>
-<%=      COMMENT_OUT if value.nil? -%><% [value].flatten.each do |l| -%>Listen <%= l -%><% end -%>
+<%=      COMMENT_OUT if value.nil? -%><% [value].flatten.each do |l| -%>Listen <%= l %><%= "\n"%><% end %>
 <%     else -%>
 <%=      COMMENT_OUT if value.nil? -%><%= key %> <%= value %>
 <%#  case end -%>

@@ -22,10 +22,6 @@
 
 * [`cups_queue`](#cups_queue): Installs and manages CUPS queues.  Printers: Minimal manifest examples      cups_queue { 'MinimalRaw':       ensure => 'printer',       uri  
 
-### Data types
-
-* [`Cups::Directives`](#Cups--Directives): Hash of CUPSd directives
-
 ## Classes
 
 ### <a name="cups"></a>`cups`
@@ -412,10 +408,12 @@ Default value: `undef`
 
 ##### <a name="-cups--directives"></a>`directives`
 
-Data type: `Optional[Cups::Directives]`
+Data type: `Optional[Hash]`
 
-Hash of config options for directives. Legacy directives options will be merged into the
-hash and will overwrite settings from directives hash.
+Hash of config options for directives. These directives will be merged with Legacy directives parameters
+hash and will overwrite settings from legacy directives parameters.
+The Hash must consist of a config file entry (e.g. 'Browsing') and specify a value)
+e.g. { 'Browsing' => false }
 
 Default value: `undef`
 
@@ -753,76 +751,4 @@ The recommended location for your PPD files is `/usr/share/cups/model/` or `/usr
 
 The specific backend to use for this `cups_queue` resource. You will seldom need to specify this --- Puppet will usually
 discover the appropriate provider for your platform.
-
-## Data types
-
-### <a name="Cups--Directives"></a>`Cups::Directives`
-
-Hash of CUPSd directives
-
-Alias of
-
-```puppet
-Struct[{
-  Optional['AccessLogLevel']             => Enum['config', 'actions', 'all'],
-  Optional['AutoPurgeJobs']              => Enum['Yes', 'No'],
-  Optional['BrowseDNSSDSubTypes_']       => Enum['cups', 'print', 'universal'],
-  Optional['BrowseIPPSOnly']             => Enum['Yes', 'No'],
-  Optional['BrowseLocalProtocols']       => Enum['all', 'dnssd', 'none'],
-  Optional['BrowseWebIF']                => Enum['Yes', 'No'],
-  Optional['Browsing']                   => Enum['Yes', 'No'],
-  Optional['DefaultAuthType']            => Enum['Basic', 'Negotiate'],
-  Optional['DefaultEncryption']          => Enum['Required', 'IfRequired', 'Never'],
-  Optional['DefaultLanguage']            => String[2],
-  Optional['DefaultPaperSize']           => Variant[Enum['Auto', 'None'], String[1]],
-  Optional['DefaultPolicy']              => Variant[Enum['default'], String[1]],
-  Optional['DefaultShared']              => Enum['Yes', 'No'],
-  Optional['DirtyCleanInterval']         => Integer,
-  Optional['DNSSDComputerName']          => Variant[Enum['none'], String[1]],
-  Optional['DNSSDHostName']              => String[1],
-  Optional['ErrorPolicy']                => Enum['abort-job', 'retry-current-job', 'retry-job', 'stop-printer'],
-  Optional['FilterLimit']                => Integer,
-  Optional['FilterNice']                 => Integer[0, 19],
-  Optional['HostNameLookups']            => Enum['On', 'Off'],
-  Optional['IdleExitTimeout']            => Integer,
-  Optional['JobKillDelay']               => Integer,
-  Optional['JobRetryInterval']           => Integer,
-  Optional['JobRetryLimit']              => Integer,
-  Optional['KeepAlive']                  => Enum['yes', 'No'],
-  Optional['LimitRequestBody']           => Integer,
-  Optional['Listen']                     => String[1],
-  Optional['LogDebugHistory']            => Integer,
-  Optional['LogLevel']                   => Enum['none', 'emerg', 'alert', 'crit', 'error', 'warn', 'notice', 'info', 'debug', 'debug2'],
-  Optional['LogTimeFormat']              => Enum['standard', 'usecs'],
-  Optional['MaxClients']                 => Integer,
-  Optional['MaxClientsPerHost']          => Integer,
-  Optional['MaxCopies']                  => Integer,
-  Optional['MaxHoldTime']                => Integer,
-  Optional['MaxJobs']                    => Integer,
-  Optional['MaxJobsPerPrinter']          => Integer,
-  Optional['MaxJobsPerUser']             => Integer,
-  Optional['MaxJobTime']                 => Integer,
-  Optional['MaxLogSize']                 => Integer,
-  Optional['MaxSubscriptions']           => Integer,
-  Optional['MaxSubscriptionsPerJob']     => Integer,
-  Optional['MaxSubscriptionsPerPrinter'] => Integer,
-  Optional['MaxSubscriptionsPerUser']    => Integer,
-  Optional['MultipleOperationTimeout']   => Integer,
-  Optional['Port']                       => Integer[0, 65535],
-  Optional['PreserveJobFiles']           => Variant[Enum['Yes', 'No'], Integer],
-  Optional['PreserveJobHistory']         => Variant[Enum['Yes', 'No'], Integer],
-  Optional['ReadyPaperSizes']            => String[1],
-  Optional['ReloadTimeout']              => Integer,
-  Optional['ServerAdmin']                => String[1],
-  Optional['ServerAlias']                => String[1],
-  Optional['ServerName']                 => String[1],
-  Optional['ServerTokens']               => Enum['None', 'ProductOnly', 'Major', 'Minor', 'Minimal', 'OS', 'Full'],
-  Optional['SSLListen']                  => String[1],
-  Optional['SSLOptions']                 => String[1],
-  Optional['SSLPort']                    => Integer[0, 65535],
-  Optional['StrictConformance']          => Enum['Yes', 'No'],
-  Optional['Timeout']                    => Integer,
-  Optional['WebInterface']               => Enum['Yes', 'No'],
-}]
-```
 

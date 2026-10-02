@@ -157,6 +157,17 @@ RSpec.describe 'cups' do
 
         it { is_expected.to contain_file('/etc/cups/cupsd.conf').with(content: %r{^Browsing No$}) }
       end
+
+      context 'when set to true and overwrite in directives' do
+        let(:params) do
+          {
+            browsing: false,
+            directives: { 'Browsing' => true },
+          }
+        end
+
+        it { is_expected.to contain_file('/etc/cups/cupsd.conf').with(content: %r{^Browsing Yes$}) }
+      end
     end
 
     describe 'default_queue' do

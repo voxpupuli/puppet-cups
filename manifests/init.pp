@@ -68,8 +68,10 @@
 # @param max_jobs_per_user Specifies the maximum number of simultaneous jobs that are allowed per user.
 # @param preserve_job_files Specifies whether job files (documents) are preserved after a job is printed.
 # @param preserve_job_history Specifies  whether  the job history is preserved after a job is printed.
-# @param directives Hash of config options for directives. Legacy directives options will be merged into the
-#   hash and will overwrite settings from directives hash.
+# @param directives Hash of config options for directives. These directives will be merged with Legacy directives parameters
+#   hash and will overwrite settings from legacy directives parameters.
+#   The Hash must consist of a config file entry (e.g. 'Browsing') and specify a value)
+#   e.g. { 'Browsing' => false }
 #
 class cups (
   Optional[String]                         $access_log_level       = undef,
@@ -109,7 +111,7 @@ class cups (
   Boolean                                  $service_manage         = true,
   Variant[String, Array[String]]           $service_names          = 'cups',
   Optional[Boolean]                        $web_interface          = undef,
-  Optional[Cups::Directives]               $directives             = undef,
+  Optional[Hash]                           $directives             = undef,
 ) inherits cups::params {
   $legacy_directives_hash = {
     'AccessLogLevel'       => $access_log_level,
@@ -137,9 +139,9 @@ class cups (
     'ServerAlias'          => $server_alias,
     'ServerName'           => $server_name,
     'WebInterface'         => $web_interface,
-  }.delete_undef_values()
+  }
 
-  $active_directives = $directives.merge($legacy_directives_hash).delete_undef_values()
+  $active_directives = $legacy_directives_hash.merge($directives)
 
   contain cups::packages
   contain cups::server

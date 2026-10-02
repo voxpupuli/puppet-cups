@@ -1,6 +1,6 @@
 <% COMMENT_OUT ||= '# '.freeze -%>
 <%# Iterate over active_directives hash -%>
-<% @active_directives.each do | key, value | -%>
+<% @active_directives.sort.each do | key, value | -%>
 <%#  PageLogFormat,PreserveJobFiles, PreserveJobHistory, ServerAlias and web_interface settings need special handling -%>
 <%#  all other key, values can be taken as is -%>
 <%   case key -%>
@@ -30,4 +30,3 @@
 <%   end -%>
 <%# each end -%>
 <% end -%>
-DefaultAuthType Basic

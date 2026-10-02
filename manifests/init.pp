@@ -119,6 +119,7 @@ class cups (
     'BrowseLocalProtocols' => $browse_local_protocols,
     'BrowseWebIF'          => $browse_web_if,
     'Browsing'             => $browsing,
+    'DefaultAuthType'      => 'Basic',
     'Listen'               => $listen,
     'LogDebugHistory'      => $log_debug_history,
     'LogLevel'             => $log_level,

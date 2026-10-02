@@ -1,31 +1,32 @@
 <% COMMENT_OUT ||= '# '.freeze -%>
-<%= COMMENT_OUT if @access_log_level.nil? -%>AccessLogLevel <%= @access_log_level %>
-<%= COMMENT_OUT if @browse_dnssd_subtypes.nil? -%>BrowseDNSSDSubTypes_<%= @browse_dnssd_subtypes.is_a?(Array) ? @browse_dnssd_subtypes.join(',_') : @browse_dnssd_subtypes %>
-<%= COMMENT_OUT if @browse_local_protocols.nil? -%>BrowseLocalProtocols <%= @browse_local_protocols.is_a?(Array) ? @browse_local_protocols.join(' ') : @browse_local_protocols %>
-<%= COMMENT_OUT if @browse_web_if.nil? -%>BrowseWebIF <%= (@browse_web_if ? 'Yes' : 'No') %>
-<%= COMMENT_OUT if @browsing.nil? -%>Browsing <%= (@browsing ? 'Yes' : 'No') %>
-DefaultAuthType Basic
-<% unless @listen.empty? -%>
-<%   [@listen].flatten.each do |l| -%>
-<%=    "Listen #{l}" %>
+<%# Iterate over active_directives hash -%>
+<% @active_directives.sort.each do | key, value | -%>
+<%#  PageLogFormat,PreserveJobFiles, PreserveJobHistory, ServerAlias and web_interface settings need special handling -%>
+<%#  all other key, values can be taken as is -%>
+<%   case key -%>
+<%     when 'PageLogFormat' -%>
+<%=      COMMENT_OUT if value.nil? -%>PageLogFormat "<%= value %>"
+<%     when 'PreserveJobFiles' -%>
+<%=      COMMENT_OUT if value.nil? -%>PreserveJobFiles <%= value.is_a?(Integer) ? value : ((value == true || %w[true yes].include?(value.to_s.downcase)) ? 'Yes' : 'No') %>
+<%     when 'PreserveJobHistory' -%>
+<%=      COMMENT_OUT if value.nil? -%>PreserveJobHistory <%= value.is_a?(Integer) ? value : ((value == true || %w[true yes].include?(value.to_s.downcase)) ? 'Yes' : 'No') %>
+<%     when 'ServerAlias' -%>
+<%=      COMMENT_OUT if value.nil? -%>ServerAlias <%= value.is_a?(Array) ? value.join(' ') : value %>
+<%     when 'WebInterface' -%>
+<%=      COMMENT_OUT if value.nil? -%>WebInterface <%= (value ? 'Yes' : 'No') %>
+<%     when 'BrowseDNSSDSubTypes_' -%>
+<%=      COMMENT_OUT if value.nil? -%>BrowseDNSSDSubTypes_<%= value.is_a?(Array) ? value.join(',_') : value %>
+<%     when 'BrowseLocalProtocols' -%>
+<%=      COMMENT_OUT if value.nil? -%>BrowseLocalProtocols <%= value.is_a?(Array) ? value.join(' ') : value %>
+<%     when 'BrowseWebIF' -%>
+<%=      COMMENT_OUT if value.nil? -%>BrowseWebIF <%= (value ? 'Yes' : 'No') %>
+<%     when 'Browsing' -%>
+<%=      COMMENT_OUT if value.nil? -%>Browsing <%= (value ? 'Yes' : 'No') %>
+<%     when 'Listen' -%>
+<%=      COMMENT_OUT if value.nil? -%><% [value].flatten.each do |l| -%>Listen <%= l %><%= "\n"%><% end %>
+<%     else -%>
+<%=      COMMENT_OUT if value.nil? -%><%= key %> <%= value %>
+<%#  case end -%>
 <%   end -%>
+<%# each end -%>
 <% end -%>
-<%= COMMENT_OUT if @log_debug_history.nil? -%>LogDebugHistory <%= @log_debug_history %>
-<%= COMMENT_OUT if @log_level.nil? -%>LogLevel <%= @log_level %>
-<%= COMMENT_OUT if @log_time_format.nil? -%>LogTimeFormat <%= @log_time_format %>
-<%= COMMENT_OUT if @max_clients.nil? -%>MaxClients <%= @max_clients %>
-<%= COMMENT_OUT if @max_clients_per_host.nil? -%>MaxClientsPerHost <%= @max_clients_per_host %>
-<%= COMMENT_OUT if @max_copies.nil? -%>MaxCopies <%= @max_copies %>
-<%= COMMENT_OUT if @max_hold_time.nil? -%>MaxHoldTime <%= @max_hold_time %>
-<%= COMMENT_OUT if @max_job_time.nil? -%>MaxJobTime <%= @max_job_time %>
-<%= COMMENT_OUT if @max_jobs.nil? -%>MaxJobs <%= @max_jobs %>
-<%= COMMENT_OUT if @max_jobs_per_printer.nil? -%>MaxJobsPerPrinter <%= @max_jobs_per_printer %>
-<%= COMMENT_OUT if @max_jobs_per_user.nil? -%>MaxJobsPerUser <%= @max_jobs_per_user %>
-<%= COMMENT_OUT if @max_log_size.nil? -%>MaxLogSize <%= @max_log_size %>
-<%= COMMENT_OUT if @max_request_size.nil? -%>MaxRequestSize <%= @max_request_size %>
-<%= COMMENT_OUT if @page_log_format.nil? -%>PageLogFormat "<%= @page_log_format %>"
-<%= COMMENT_OUT if @preserve_job_files.nil? -%>PreserveJobFiles <%= @preserve_job_files.is_a?(Integer) ? @preserve_job_files : ((@preserve_job_files == true || %w[true yes].include?(@preserve_job_files.to_s.downcase)) ? 'Yes' : 'No') %>
-<%= COMMENT_OUT if @preserve_job_history.nil? -%>PreserveJobHistory <%= @preserve_job_history.is_a?(Integer) ? @preserve_job_history : ((@preserve_job_history == true || %w[true yes].include?(@preserve_job_history.to_s.downcase)) ? 'Yes' : 'No') %>
-<%= COMMENT_OUT if @server_alias.nil? -%>ServerAlias <%= @server_alias.is_a?(Array) ? @server_alias.join(' ') : @server_alias %>
-<%= COMMENT_OUT if @server_name.nil? -%>ServerName <%= @server_name %>
-<%= COMMENT_OUT if @web_interface.nil? -%>WebInterface <%= (@web_interface ? 'Yes' : 'No') %>

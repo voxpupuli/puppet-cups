@@ -100,6 +100,7 @@ The following parameters are available in the `cups` class:
 * [`max_jobs_per_user`](#-cups--max_jobs_per_user)
 * [`preserve_job_files`](#-cups--preserve_job_files)
 * [`preserve_job_history`](#-cups--preserve_job_history)
+* [`directives`](#-cups--directives)
 
 ##### <a name="-cups--access_log_level"></a>`access_log_level`
 
@@ -404,6 +405,17 @@ Data type: `Optional[Variant[Boolean, Integer]]`
 Specifies  whether  the job history is preserved after a job is printed.
 
 Default value: `undef`
+
+##### <a name="-cups--directives"></a>`directives`
+
+Data type: `Hash`
+
+Hash of config options for directives. These directives will be merged with Legacy directives parameters
+hash and will overwrite settings from legacy directives parameters.
+The Hash must consist of a config file entry (e.g. 'Browsing') and specify a value)
+e.g. { 'Browsing' => false }
+
+Default value: `{}`
 
 ### <a name="cups--packages"></a>`cups::packages`
 

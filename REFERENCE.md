@@ -408,14 +408,14 @@ Default value: `undef`
 
 ##### <a name="-cups--directives"></a>`directives`
 
-Data type: `Optional[Hash]`
+Data type: `Hash`
 
 Hash of config options for directives. These directives will be merged with Legacy directives parameters
 hash and will overwrite settings from legacy directives parameters.
 The Hash must consist of a config file entry (e.g. 'Browsing') and specify a value)
 e.g. { 'Browsing' => false }
 
-Default value: `undef`
+Default value: `{}`
 
 ### <a name="cups--packages"></a>`cups::packages`
 

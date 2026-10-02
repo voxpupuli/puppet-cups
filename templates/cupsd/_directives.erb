@@ -22,6 +22,8 @@
 <%=      COMMENT_OUT if value.nil? -%>BrowseWebIF <%= (value ? 'Yes' : 'No') %>
 <%     when 'Browsing' -%>
 <%=      COMMENT_OUT if value.nil? -%>Browsing <%= (value ? 'Yes' : 'No') %>
+<%     when 'Listen' -%>
+<%=      COMMENT_OUT if value.nil? -%><% [value].flatten.each do |l| -%>Listen <%= l -%><% end -%>
 <%     else -%>
 <%=      COMMENT_OUT if value.nil? -%><%= key %> <%= value %>
 <%#  case end -%>
@@ -29,8 +31,3 @@
 <%# each end -%>
 <% end -%>
 DefaultAuthType Basic
-<% unless @listen.empty? -%>
-<%   [@listen].flatten.each do |l| -%>
-<%=    "Listen #{l}" %>
-<%   end -%>
-<% end -%>

@@ -111,7 +111,7 @@ class cups (
   Boolean                                  $service_manage         = true,
   Variant[String, Array[String]]           $service_names          = 'cups',
   Optional[Boolean]                        $web_interface          = undef,
-  Optional[Hash]                           $directives             = undef,
+  Hash                                     $directives             = {},
 ) inherits cups::params {
   $legacy_directives_hash = {
     'AccessLogLevel'       => $access_log_level,
@@ -141,7 +141,7 @@ class cups (
     'WebInterface'         => $web_interface,
   }
 
-  $active_directives = $legacy_directives_hash.merge($directives)
+  $active_directives = $legacy_directives_hash + $directives
 
   contain cups::packages
   contain cups::server

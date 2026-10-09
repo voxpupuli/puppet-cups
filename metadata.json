@@ -1,6 +1,6 @@
 {
   "name": "leoarnold-cups",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "author": "Leo Arnold",
   "summary": "Puppet module for the Common Unix Printing System (CUPS)",
   "license": "MIT",
@@ -12,9 +12,7 @@
     "printer",
     "printing"
   ],
-  "dependencies": [
-
-  ],
+  "dependencies": [],
   "operatingsystem_support": [
     {
       "operatingsystem": "CentOS",

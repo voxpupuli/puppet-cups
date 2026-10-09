@@ -1,256 +1,580 @@
 # Changelog
 
-## 2019-06-16 - Release 2.2.2
-
-Published at [Puppet Forge](https://forge.puppet.com/leoarnold/cups/2.2.2)
-and [GitHub](https://github.com/leoarnold/puppet-cups/releases/tag/2.2.2).
-
-### Summary
-
-This release drops the use of encryption while talking to localhost via IPP.
-On localhost, HTTPS technically isn't necessary and since some users experienced
-CUPS SSL errors, we stop using it.
-
-## 2019-06-13 - Release 2.2.1
-
-Published at [Puppet Forge](https://forge.puppet.com/leoarnold/cups/2.2.1)
-and [GitHub](https://github.com/leoarnold/puppet-cups/releases/tag/2.2.1).
-
-### Summary
-
-This release drops the use of Array percent literals in order to support
-a wider range of JRuby based Puppet servers.
-
-## 2019-04-23 - Release 2.2.0
-
-Published at [Puppet Forge](https://forge.puppet.com/leoarnold/cups/2.2.0)
-and [GitHub](https://github.com/leoarnold/puppet-cups/releases/tag/2.2.0).
-
-### Summary
-
-This release adds control over all `cupsd.conf` directives related to logging.
-
-## 2019-04-22 - Release 2.1.1
-
-Published at [Puppet Forge](https://forge.puppet.com/leoarnold/cups/2.1.1)
-and [GitHub](https://github.com/leoarnold/puppet-cups/releases/tag/2.1.1).
-
-### Summary
-
-This release provides a workaround for a known shortcoming
-in some systemd based Linux distributions.
-Thanks to [Thomas Equeter](https://github.com/tequeter)!
-
-### Workaround
-
-On some systemd based Linux distributions the Puppet run fails because
-during service restart systemd would prematurely yield back control to
-Puppet which would then fail to install print queues.
-
-The module now offers a workaround which will make
-the systemd unit `cups.socket` wait for CUPS to listen on `localhost:631`
-before yielding back control.
-
-## 2019-03-24 - Release 2.1.0
-
-Published at [Puppet Forge](https://forge.puppet.com/leoarnold/cups/2.1.0)
-and [GitHub](https://github.com/leoarnold/puppet-cups/releases/tag/2.1.0).
-
-### Summary
-
-This release exposes more CUPS directives through `class { '::cups': }`.
-
-### Features
-
-- CUPS Browsing directives are now configurable
-- `ServerAlias` and `ServerName` directives are now configurable
-- `MaxClients` and `MaxRequestSize` directives are now configurable
-- ACLs for CUPS endpoints (`LOCATION` directives) are now configurable
-  and support some well-known frequently used presets
-
-### Bugfixes
-
-- The module will now ensure that the `paperconfig` command of `libpaper`
-  is actually available
-
-## 2017-01-18 - Bugfix release 2.0.3
-
-Published at [Puppet Forge](https://forge.puppet.com/leoarnold/cups/2.0.3)
-and [GitHub](https://github.com/leoarnold/puppet-cups/releases/tag/2.0.3).
-
-### Summary
-
-This release fixes several bugs where retrieved values were still
-surrounded by quotes, thereby incorrectly breaking idempotence.
-
-## 2017-11-21 - Bugfix release 2.0.2
-
-Published at [Puppet Forge](https://forge.puppet.com/leoarnold/cups/2.0.2)
-and [GitHub](https://github.com/leoarnold/puppet-cups/releases/tag/2.0.2).
-
-### Summary
-
-This release fixes a conflict when using remotely shared queues.
-
-### Bugfixes
-
-- Removed the default value `shared => false` for type `cups_queue`
-  in order to comply with [CUPS #4766](https://github.com/apple/cups/issues/4766)
-
-## 2017-11-16 - Official Approval by Puppet Inc
-
-We are proud to announce that Puppet Inc [officially approved](https://tickets.puppetlabs.com/browse/MODULES-5903)
-version 2.0.1 of this module.
-
-## 2017-11-09 - Service release 2.0.1
-
-Published at [Puppet Forge](https://forge.puppet.com/leoarnold/cups/2.0.1)
-and [GitHub](https://github.com/leoarnold/puppet-cups/releases/tag/2.0.1).
-
-### Summary
-
-This service release adds extensive inline documentation
-and some code quality improvements.
-
-### Improvements
-
-- Inline [Yard](https://yardoc.org) and [Puppet Strings](https://github.com/puppetlabs/puppet-strings) documentation
-- Online [Yard documentation](https://leoarnold.github.io/puppet-cups)
-- Several Ruby modules refactored to static methods of a single module
-- Tests now use unquoted booleans as customary in Puppet 5
-
-## 2017-11-01 - Release 2.0.0
-
-Published at [Puppet Forge](https://forge.puppet.com/leoarnold/cups/2.0.0)
-and [GitHub](https://github.com/leoarnold/puppet-cups/releases/tag/2.0.0).
-
-### Summary
-
-The new major release drops support for Puppet 3 installations
-and introduces some breaking changes in the API.
-Please adjust your manifests according to the [upgrade instructions](UPGRADING.md).
-
-### Breaking changes
-
-- Puppet 3.x is no longer supported. All manifests now use Puppet 4 syntax
-- Ruby 1.x is no longer supported since Puppet 4 comes with Ruby `~> 2.1`
-- All facts were removed
-- Some attributes were removed from the `cups` class
-- The defined type `cups::ctl` was removed
-- System V interface scripts are no longer supported
-  since CUPS dropped support for them in [V2.2b1](https://github.com/apple/cups/blob/v2.2.0/CHANGES.txt#L67)
-
-### Features
-
-- `Class[cups]` now features tunables for package and service management
-- The `Listen` directive of `cupsd.conf` can now be managed through `Class[cups]`
-- `cups_queue` now supports managing the option `auth-info-required`
-
-### Bugfixes
-
-- Execution of `ipptool` now enjoys more comprehensive error handling
-- A fallback method for IPP queries was added to enable correct execution
-  even on systems with an erroneous CUPS installation (e.g. Ubuntu 16.10 and 17.04)
-- Queue names with special characters (e.g. ampersands) are now handled correctly
-- Handling of queue option `job-sheets-default` was fixed
-
-## 2016-05-24 - Maintenance release 1.2.2
-
-Published at [Puppet Forge](https://forge.puppet.com/leoarnold/cups/1.2.2)
-and [GitHub](https://github.com/leoarnold/puppet-cups/releases/tag/1.2.2).
-
-### Summary
-
-This release fixes package installation on Debian derivatives shipping with CUPS 2.x.
-
-### Changes
-
-- On Debian derivatives shipping with CUPS 2.x, the package `cups-ipp-utils` will now be installed automatically
-- Acceptance tests were adapted to work on Ruby 2.x
-
-## 2016-05-17 - Maintenance release 1.2.1
-
-Published at [Puppet Forge](https://forge.puppet.com/leoarnold/cups/1.2.1)
-and [GitHub](https://github.com/leoarnold/puppet-cups/releases/tag/1.2.1).
-
-### Summary
-
-This release improves the module's log message output.
-
-### Changes
-
-- The private class `cups::default_queue` now logs which queue was set as daemon default
-- The new private class `cups::papersize` now logs which papersize was set
-
-## 2016-05-12 - Release 1.2.0
-
-Published at [Puppet Forge](https://forge.puppet.com/leoarnold/cups/1.2.0)
-and [GitHub](https://github.com/leoarnold/puppet-cups/releases/tag/1.2.0).
-
-### Summary
-
-This release introduces some new functionality.
-
-### Features
-
-- Direct resource creation by an External Node Classifier (as requested in issue #2)
-- Managing `/etc/papersize`
-
-## 2016-04-10 - Release 1.1.0
-
-Published at [Puppet Forge](https://forge.puppet.com/leoarnold/cups/1.1.0)
-and [GitHub](https://github.com/leoarnold/puppet-cups/releases/tag/1.1.0).
-
-### Summary
-
-This release introduces a new feature and adjusts to Puppet's brand refresh.
-
-### Features
-
-- All unmanaged CUPS queues can now be removed automatically
-
-## 2016-03-19 - Maintenance release 1.0.2
-
-Published at [Puppet Forge](https://forge.puppet.com/leoarnold/cups/1.0.2)
-and [GitHub](https://github.com/leoarnold/puppet-cups/releases/tag/1.0.2).
-
-### Summary
-
-This maintenance release overcomes an unintuitive 3rd-party behavior
-and improves the internal structure of the module.
-
-### Changes in default behavior
-
-- The default value for `ensure` was removed.
-
-### Bugfixes
-
-- A workaround for [CUPS issue 4781](https://github.com/apple/cups/issues/4781)
-- Using `puppet resource cups_queue` to modify an already installed queue
-  is now possible without specifying `ensure`
-- Automatic resource relations were adjusted to show up correctly in the dependency graph
-
-## 2016-03-19 - Maintenance release 1.0.1
-
-_retracted_.
-
-## 2016-03-07 - Release 1.0.0
-
-Published at [Puppet Forge](https://forge.puppet.com/leoarnold/cups/1.0.0)
-and [GitHub](https://github.com/leoarnold/puppet-cups/releases/tag/1.0.0).
-
-### Summary
-
-Existing CUPS modules in the [Puppet Forge](https://forge.puppet.com/) lacked some desirable functionality by design.
-This module was written from scratch, taking divergent architectural decisions and employing test driven development
-to provide all features required in an office network setting.
-
-### Key features
-
-- Locale independence (tested on English and Spanish VMs)
-- Support for a wide range of Linux distributions
-- Unified support for printer queues and class queues
-- Default queue management
-- Support for printer driver changes
-- Support for queue access control
-- Unified support for CUPS options and PPD options
+All notable changes to this project will be documented in this file.
+Each new release typically also includes the latest modulesync defaults.
+These should not affect the functionality of the module.
+
+## [v3.0.0](https://github.com/voxpupuli/puppet-cups/tree/v3.0.0) (2026-10-09)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cups/compare/2.2.2...v3.0.0)
+
+**Breaking changes:**
+
+- Drop Puppet support; add OpenVox 8 support [\#541](https://github.com/voxpupuli/puppet-cups/pull/541) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- chore: add a directives hash [\#554](https://github.com/voxpupuli/puppet-cups/pull/554) ([tuxmea](https://github.com/tuxmea))
+- Add all remaining 'Max' parameters to cupsd.conf file. [\#547](https://github.com/voxpupuli/puppet-cups/pull/547) ([bschonec](https://github.com/bschonec))
+
+**Closed issues:**
+
+- Please add ServerTokens+SSLOptions [\#550](https://github.com/voxpupuli/puppet-cups/issues/550)
+- Enhancement Request : need MaxJobsPerPrinter directive to be added in cupsd template file \_directives.erb  [\#323](https://github.com/voxpupuli/puppet-cups/issues/323)
+- Please add an options hash [\#322](https://github.com/voxpupuli/puppet-cups/issues/322)
+- Depfu Error: Depfu is stuck and needs your help [\#274](https://github.com/voxpupuli/puppet-cups/issues/274)
+- Depfu Error: Depfu is stuck and needs your help [\#260](https://github.com/voxpupuli/puppet-cups/issues/260)
+- Depfu Error: Depfu is stuck and needs your help [\#229](https://github.com/voxpupuli/puppet-cups/issues/229)
+- Depfu Error: Depfu is stuck and needs your help [\#228](https://github.com/voxpupuli/puppet-cups/issues/228)
+- Configuration for MaxSubscriptions \(needed for \> 100 clients\) [\#227](https://github.com/voxpupuli/puppet-cups/issues/227)
+- \[Feature\] Configurability for MaxJobs and PreserveJobHistory [\#210](https://github.com/voxpupuli/puppet-cups/issues/210)
+-  Could not prefetch cups\_queue provider 'cups' on Ubuntu 18.04 [\#207](https://github.com/voxpupuli/puppet-cups/issues/207)
+- Deprecation message prevents creation of queue [\#182](https://github.com/voxpupuli/puppet-cups/issues/182)
+- More options should be configurable [\#77](https://github.com/voxpupuli/puppet-cups/issues/77)
+
+**Merged pull requests:**
+
+- fix\(docs\): Update reference.md [\#557](https://github.com/voxpupuli/puppet-cups/pull/557) ([tuxmea](https://github.com/tuxmea))
+- Add PreserveJobFiles and PreserveJobHistory to cupsd.conf template. [\#548](https://github.com/voxpupuli/puppet-cups/pull/548) ([bschonec](https://github.com/bschonec))
+- Delete unused nodesets [\#542](https://github.com/voxpupuli/puppet-cups/pull/542) ([bastelfreak](https://github.com/bastelfreak))
+- Rename license file [\#539](https://github.com/voxpupuli/puppet-cups/pull/539) ([leoarnold](https://github.com/leoarnold))
+- Upgrade rubocop to version 1.42.0 [\#537](https://github.com/voxpupuli/puppet-cups/pull/537) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.15.2 [\#536](https://github.com/voxpupuli/puppet-cups/pull/536) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.41.1 [\#535](https://github.com/voxpupuli/puppet-cups/pull/535) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.41.0 [\#534](https://github.com/voxpupuli/puppet-cups/pull/534) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.16.0 [\#533](https://github.com/voxpupuli/puppet-cups/pull/533) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.40.0 [\#532](https://github.com/voxpupuli/puppet-cups/pull/532) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.24.1 [\#531](https://github.com/voxpupuli/puppet-cups/pull/531) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.15.1 [\#530](https://github.com/voxpupuli/puppet-cups/pull/530) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.24.0 [\#529](https://github.com/voxpupuli/puppet-cups/pull/529) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.39.0 [\#528](https://github.com/voxpupuli/puppet-cups/pull/528) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.15.0 [\#527](https://github.com/voxpupuli/puppet-cups/pull/527) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.29.0 [\#526](https://github.com/voxpupuli/puppet-cups/pull/526) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.38.0 [\#525](https://github.com/voxpupuli/puppet-cups/pull/525) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppet-strings to version 3.0.1 [\#524](https://github.com/voxpupuli/puppet-cups/pull/524) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.14.2 [\#523](https://github.com/voxpupuli/puppet-cups/pull/523) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.37.1 [\#521](https://github.com/voxpupuli/puppet-cups/pull/521) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.14.1 [\#520](https://github.com/voxpupuli/puppet-cups/pull/520) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.37.0 [\#519](https://github.com/voxpupuli/puppet-cups/pull/519) ([depfu[bot]](https://github.com/apps/depfu))
+- Default to Puppet 7 [\#518](https://github.com/voxpupuli/puppet-cups/pull/518) ([leoarnold](https://github.com/leoarnold))
+- Update simplecov [\#517](https://github.com/voxpupuli/puppet-cups/pull/517) ([leoarnold](https://github.com/leoarnold))
+- Remove codacy [\#516](https://github.com/voxpupuli/puppet-cups/pull/516) ([leoarnold](https://github.com/leoarnold))
+- Reenable Rubocop in CI [\#515](https://github.com/voxpupuli/puppet-cups/pull/515) ([leoarnold](https://github.com/leoarnold))
+- Upgrade mdl to version 0.12.0 [\#513](https://github.com/voxpupuli/puppet-cups/pull/513) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.13.2 [\#512](https://github.com/voxpupuli/puppet-cups/pull/512) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.38.1 [\#511](https://github.com/voxpupuli/puppet-cups/pull/511) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.13.1 [\#510](https://github.com/voxpupuli/puppet-cups/pull/510) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.15.0 [\#509](https://github.com/voxpupuli/puppet-cups/pull/509) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.28.0 [\#508](https://github.com/voxpupuli/puppet-cups/pull/508) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.23.0 [\#507](https://github.com/voxpupuli/puppet-cups/pull/507) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.36.0 [\#506](https://github.com/voxpupuli/puppet-cups/pull/506) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.27.0 [\#505](https://github.com/voxpupuli/puppet-cups/pull/505) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.35.1 [\#504](https://github.com/voxpupuli/puppet-cups/pull/504) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.35.0 [\#503](https://github.com/voxpupuli/puppet-cups/pull/503) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.38.0 [\#502](https://github.com/voxpupuli/puppet-cups/pull/502) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.34.1 [\#501](https://github.com/voxpupuli/puppet-cups/pull/501) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.26.3 [\#500](https://github.com/voxpupuli/puppet-cups/pull/500) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.33.0 [\#499](https://github.com/voxpupuli/puppet-cups/pull/499) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.37.2 [\#498](https://github.com/voxpupuli/puppet-cups/pull/498) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.37.1 [\#497](https://github.com/voxpupuli/puppet-cups/pull/497) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.22.1 [\#496](https://github.com/voxpupuli/puppet-cups/pull/496) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.32.0 [\#495](https://github.com/voxpupuli/puppet-cups/pull/495) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.14.3 [\#494](https://github.com/voxpupuli/puppet-cups/pull/494) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.22.0 [\#493](https://github.com/voxpupuli/puppet-cups/pull/493) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.31.2 [\#492](https://github.com/voxpupuli/puppet-cups/pull/492) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.12.1 [\#491](https://github.com/voxpupuli/puppet-cups/pull/491) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.12.0 [\#490](https://github.com/voxpupuli/puppet-cups/pull/490) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.31.1 [\#489](https://github.com/voxpupuli/puppet-cups/pull/489) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.37.0 [\#488](https://github.com/voxpupuli/puppet-cups/pull/488) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.31.0 [\#487](https://github.com/voxpupuli/puppet-cups/pull/487) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.36.1 [\#486](https://github.com/voxpupuli/puppet-cups/pull/486) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.21.0 [\#485](https://github.com/voxpupuli/puppet-cups/pull/485) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.14.2 [\#484](https://github.com/voxpupuli/puppet-cups/pull/484) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.30.1 [\#483](https://github.com/voxpupuli/puppet-cups/pull/483) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.14.1 [\#482](https://github.com/voxpupuli/puppet-cups/pull/482) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.26.2 [\#481](https://github.com/voxpupuli/puppet-cups/pull/481) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.36.0 [\#480](https://github.com/voxpupuli/puppet-cups/pull/480) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.30.0 [\#479](https://github.com/voxpupuli/puppet-cups/pull/479) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.14.0 [\#478](https://github.com/voxpupuli/puppet-cups/pull/478) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.11.1 [\#477](https://github.com/voxpupuli/puppet-cups/pull/477) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade pdk to version 2.5.0 [\#476](https://github.com/voxpupuli/puppet-cups/pull/476) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.35.0 [\#475](https://github.com/voxpupuli/puppet-cups/pull/475) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.29.1 [\#474](https://github.com/voxpupuli/puppet-cups/pull/474) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade metadata-json-lint to version 3.0.2 [\#472](https://github.com/voxpupuli/puppet-cups/pull/472) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade overcommit to version 0.59.1 [\#471](https://github.com/voxpupuli/puppet-cups/pull/471) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade overcommit to version 0.59.0 [\#470](https://github.com/voxpupuli/puppet-cups/pull/470) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.28.2 [\#469](https://github.com/voxpupuli/puppet-cups/pull/469) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rspec-puppet-facts to version 2.0.5 [\#468](https://github.com/voxpupuli/puppet-cups/pull/468) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.28.1 [\#467](https://github.com/voxpupuli/puppet-cups/pull/467) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.10.0 [\#466](https://github.com/voxpupuli/puppet-cups/pull/466) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.27.0 [\#465](https://github.com/voxpupuli/puppet-cups/pull/465) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.20.0 [\#464](https://github.com/voxpupuli/puppet-cups/pull/464) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.26.1 [\#463](https://github.com/voxpupuli/puppet-cups/pull/463) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.26.1 [\#462](https://github.com/voxpupuli/puppet-cups/pull/462) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.25.0 [\#461](https://github.com/voxpupuli/puppet-cups/pull/461) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.26.0 [\#460](https://github.com/voxpupuli/puppet-cups/pull/460) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.13.3 [\#459](https://github.com/voxpupuli/puppet-cups/pull/459) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.24.0 [\#458](https://github.com/voxpupuli/puppet-cups/pull/458) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.9.0 [\#457](https://github.com/voxpupuli/puppet-cups/pull/457) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.23.0 [\#456](https://github.com/voxpupuli/puppet-cups/pull/456) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.19.0 [\#455](https://github.com/voxpupuli/puppet-cups/pull/455) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade pdk to version 2.4.0 [\#454](https://github.com/voxpupuli/puppet-cups/pull/454) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.25.1 [\#453](https://github.com/voxpupuli/puppet-cups/pull/453) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.34.0 [\#452](https://github.com/voxpupuli/puppet-cups/pull/452) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.8.0 [\#451](https://github.com/voxpupuli/puppet-cups/pull/451) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.33.0 [\#450](https://github.com/voxpupuli/puppet-cups/pull/450) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.25.0 [\#449](https://github.com/voxpupuli/puppet-cups/pull/449) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.13.2 [\#448](https://github.com/voxpupuli/puppet-cups/pull/448) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-rspec to version 7.1.0 [\#447](https://github.com/voxpupuli/puppet-cups/pull/447) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.13.1 [\#446](https://github.com/voxpupuli/puppet-cups/pull/446) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.22.2 [\#445](https://github.com/voxpupuli/puppet-cups/pull/445) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.24.1 [\#444](https://github.com/voxpupuli/puppet-cups/pull/444) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.7.0 [\#443](https://github.com/voxpupuli/puppet-cups/pull/443) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.13.0 [\#442](https://github.com/voxpupuli/puppet-cups/pull/442) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.24.0 [\#441](https://github.com/voxpupuli/puppet-cups/pull/441) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.18.0 [\#440](https://github.com/voxpupuli/puppet-cups/pull/440) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.32.0 [\#439](https://github.com/voxpupuli/puppet-cups/pull/439) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppet-strings to version 2.9.0 [\#438](https://github.com/voxpupuli/puppet-cups/pull/438) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.23.0 [\#437](https://github.com/voxpupuli/puppet-cups/pull/437) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.6.0 [\#435](https://github.com/voxpupuli/puppet-cups/pull/435) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-rspec to version 7.0.0 [\#434](https://github.com/voxpupuli/puppet-cups/pull/434) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.31.0 [\#433](https://github.com/voxpupuli/puppet-cups/pull/433) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.12.0 [\#432](https://github.com/voxpupuli/puppet-cups/pull/432) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.22.3 [\#431](https://github.com/voxpupuli/puppet-cups/pull/431) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.22.2 [\#430](https://github.com/voxpupuli/puppet-cups/pull/430) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade pdk to version 2.3.0 [\#429](https://github.com/voxpupuli/puppet-cups/pull/429) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.17.0 [\#428](https://github.com/voxpupuli/puppet-cups/pull/428) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.22.1 [\#427](https://github.com/voxpupuli/puppet-cups/pull/427) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.22.0 [\#426](https://github.com/voxpupuli/puppet-cups/pull/426) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rspec-puppet-facts to version 2.0.3 [\#425](https://github.com/voxpupuli/puppet-cups/pull/425) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.5.0 [\#424](https://github.com/voxpupuli/puppet-cups/pull/424) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.21.0 [\#423](https://github.com/voxpupuli/puppet-cups/pull/423) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.20.0 [\#422](https://github.com/voxpupuli/puppet-cups/pull/422) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppetlabs\_spec\_helper to version 4.0.1 [\#421](https://github.com/voxpupuli/puppet-cups/pull/421) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.22.1 [\#420](https://github.com/voxpupuli/puppet-cups/pull/420) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.19.1 [\#419](https://github.com/voxpupuli/puppet-cups/pull/419) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.11.5 [\#418](https://github.com/voxpupuli/puppet-cups/pull/418) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.22.0 [\#417](https://github.com/voxpupuli/puppet-cups/pull/417) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade metadata-json-lint to version 3.0.1 [\#416](https://github.com/voxpupuli/puppet-cups/pull/416) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.19.0 [\#415](https://github.com/voxpupuli/puppet-cups/pull/415) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppet-blacksmith to version 6.1.1 [\#413](https://github.com/voxpupuli/puppet-cups/pull/413) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.16.1 [\#412](https://github.com/voxpupuli/puppet-cups/pull/412) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade pdk to version 2.2.0 [\#411](https://github.com/voxpupuli/puppet-cups/pull/411) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.16.0 [\#410](https://github.com/voxpupuli/puppet-cups/pull/410) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppetlabs\_spec\_helper to version 4.0.0 [\#409](https://github.com/voxpupuli/puppet-cups/pull/409) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.18.4 [\#408](https://github.com/voxpupuli/puppet-cups/pull/408) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.30.0 [\#407](https://github.com/voxpupuli/puppet-cups/pull/407) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rspec-puppet-facts to version 2.0.2 [\#406](https://github.com/voxpupuli/puppet-cups/pull/406) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppet-strings to version 2.8.0 [\#405](https://github.com/voxpupuli/puppet-cups/pull/405) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rake to version 13.0.6 [\#404](https://github.com/voxpupuli/puppet-cups/pull/404) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.11.4 [\#402](https://github.com/voxpupuli/puppet-cups/pull/402) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rake to version 13.0.4 [\#401](https://github.com/voxpupuli/puppet-cups/pull/401) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.18.3 [\#400](https://github.com/voxpupuli/puppet-cups/pull/400) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.18.2 [\#399](https://github.com/voxpupuli/puppet-cups/pull/399) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.18.1 [\#398](https://github.com/voxpupuli/puppet-cups/pull/398) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rake to version 0.6.0 [\#397](https://github.com/voxpupuli/puppet-cups/pull/397) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade pdk to version 2.1.1 [\#396](https://github.com/voxpupuli/puppet-cups/pull/396) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.17.0 [\#395](https://github.com/voxpupuli/puppet-cups/pull/395) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.4.0 [\#394](https://github.com/voxpupuli/puppet-cups/pull/394) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.16.1 [\#393](https://github.com/voxpupuli/puppet-cups/pull/393) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.16.0 [\#392](https://github.com/voxpupuli/puppet-cups/pull/392) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade overcommit to version 0.58.0 [\#391](https://github.com/voxpupuli/puppet-cups/pull/391) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.15.0 [\#390](https://github.com/voxpupuli/puppet-cups/pull/390) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-vagrant to version 0.7.1 [\#389](https://github.com/voxpupuli/puppet-cups/pull/389) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.29.1 [\#388](https://github.com/voxpupuli/puppet-cups/pull/388) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.29.0 [\#387](https://github.com/voxpupuli/puppet-cups/pull/387) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-vagrant to version 0.7.0 [\#386](https://github.com/voxpupuli/puppet-cups/pull/386) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppet-strings to version 2.7.0 [\#385](https://github.com/voxpupuli/puppet-cups/pull/385) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.15.0 [\#384](https://github.com/voxpupuli/puppet-cups/pull/384) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.11.3 [\#383](https://github.com/voxpupuli/puppet-cups/pull/383) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.14.0 [\#382](https://github.com/voxpupuli/puppet-cups/pull/382) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.11.1 [\#381](https://github.com/voxpupuli/puppet-cups/pull/381) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.3.0 [\#380](https://github.com/voxpupuli/puppet-cups/pull/380) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.11.0 [\#379](https://github.com/voxpupuli/puppet-cups/pull/379) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.13.0 [\#376](https://github.com/voxpupuli/puppet-cups/pull/376) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.14.0 [\#373](https://github.com/voxpupuli/puppet-cups/pull/373) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade pdk to version 2.1.0 [\#372](https://github.com/voxpupuli/puppet-cups/pull/372) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.12.1 [\#371](https://github.com/voxpupuli/puppet-cups/pull/371) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.12.0 [\#370](https://github.com/voxpupuli/puppet-cups/pull/370) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.10.2 [\#369](https://github.com/voxpupuli/puppet-cups/pull/369) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.28.1 [\#368](https://github.com/voxpupuli/puppet-cups/pull/368) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.10.1 [\#367](https://github.com/voxpupuli/puppet-cups/pull/367) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.11.0 [\#366](https://github.com/voxpupuli/puppet-cups/pull/366) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-vagrant to version 0.6.7 [\#364](https://github.com/voxpupuli/puppet-cups/pull/364) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-rspec to version 6.3.0 [\#363](https://github.com/voxpupuli/puppet-cups/pull/363) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade pdk to version 2.0.0 [\#362](https://github.com/voxpupuli/puppet-cups/pull/362) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.13.0 [\#361](https://github.com/voxpupuli/puppet-cups/pull/361) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.10.0 [\#360](https://github.com/voxpupuli/puppet-cups/pull/360) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppetlabs\_spec\_helper to version 3.0.0 [\#359](https://github.com/voxpupuli/puppet-cups/pull/359) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.2.0 [\#358](https://github.com/voxpupuli/puppet-cups/pull/358) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.9.1 [\#357](https://github.com/voxpupuli/puppet-cups/pull/357) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppetlabs\_spec\_helper to version 2.16.0 [\#354](https://github.com/voxpupuli/puppet-cups/pull/354) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppet-strings to version 2.6.0 [\#353](https://github.com/voxpupuli/puppet-cups/pull/353) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.8.1 [\#352](https://github.com/voxpupuli/puppet-cups/pull/352) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rspec-puppet-facts to version 2.0.1 [\#351](https://github.com/voxpupuli/puppet-cups/pull/351) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.8.0 [\#350](https://github.com/voxpupuli/puppet-cups/pull/350) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.9.2 [\#349](https://github.com/voxpupuli/puppet-cups/pull/349) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.21.0 [\#348](https://github.com/voxpupuli/puppet-cups/pull/348) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.28.0 [\#347](https://github.com/voxpupuli/puppet-cups/pull/347) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rake to version 13.0.3 [\#346](https://github.com/voxpupuli/puppet-cups/pull/346) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rake to version 13.0.2 [\#345](https://github.com/voxpupuli/puppet-cups/pull/345) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.1.0 [\#344](https://github.com/voxpupuli/puppet-cups/pull/344) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade redcarpet to version 3.5.1 [\#343](https://github.com/voxpupuli/puppet-cups/pull/343) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.12.2 [\#342](https://github.com/voxpupuli/puppet-cups/pull/342) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.6.1 [\#341](https://github.com/voxpupuli/puppet-cups/pull/341) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.5.2 [\#340](https://github.com/voxpupuli/puppet-cups/pull/340) ([depfu[bot]](https://github.com/apps/depfu))
+- Add rubocop-rake [\#339](https://github.com/voxpupuli/puppet-cups/pull/339) ([leoarnold](https://github.com/leoarnold))
+- Upgrade rubocop to version 1.5.1 [\#338](https://github.com/voxpupuli/puppet-cups/pull/338) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.12.1 [\#337](https://github.com/voxpupuli/puppet-cups/pull/337) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.0.1 [\#336](https://github.com/voxpupuli/puppet-cups/pull/336) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.9.1 [\#335](https://github.com/voxpupuli/puppet-cups/pull/335) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.4.2 [\#334](https://github.com/voxpupuli/puppet-cups/pull/334) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade metadata-json-lint to version 3.0.0 [\#333](https://github.com/voxpupuli/puppet-cups/pull/333) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.4.1 [\#332](https://github.com/voxpupuli/puppet-cups/pull/332) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppet-blacksmith to version 6.1.0 [\#331](https://github.com/voxpupuli/puppet-cups/pull/331) ([depfu[bot]](https://github.com/apps/depfu))
+- Migrate from Travis CI to GitHub Actions [\#330](https://github.com/voxpupuli/puppet-cups/pull/330) ([leoarnold](https://github.com/leoarnold))
+- Upgrade rubocop-performance to version 1.9.0 [\#329](https://github.com/voxpupuli/puppet-cups/pull/329) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.3.1 [\#328](https://github.com/voxpupuli/puppet-cups/pull/328) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 1.3.0 [\#327](https://github.com/voxpupuli/puppet-cups/pull/327) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 2.0.0 [\#326](https://github.com/voxpupuli/puppet-cups/pull/326) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.12.0 [\#325](https://github.com/voxpupuli/puppet-cups/pull/325) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 1.44.1 [\#318](https://github.com/voxpupuli/puppet-cups/pull/318) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.93.1 [\#317](https://github.com/voxpupuli/puppet-cups/pull/317) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.93.0 [\#316](https://github.com/voxpupuli/puppet-cups/pull/316) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppet-blacksmith to version 6.0.1 [\#315](https://github.com/voxpupuli/puppet-cups/pull/315) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade overcommit to version 0.57.0 [\#314](https://github.com/voxpupuli/puppet-cups/pull/314) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.11.1 [\#313](https://github.com/voxpupuli/puppet-cups/pull/313) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.27.1 [\#312](https://github.com/voxpupuli/puppet-cups/pull/312) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade overcommit to version 0.56.0 [\#311](https://github.com/voxpupuli/puppet-cups/pull/311) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.92.0 [\#310](https://github.com/voxpupuli/puppet-cups/pull/310) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.91.1 [\#309](https://github.com/voxpupuli/puppet-cups/pull/309) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.8.1 [\#307](https://github.com/voxpupuli/puppet-cups/pull/307) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.91.0 [\#306](https://github.com/voxpupuli/puppet-cups/pull/306) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.20.0 [\#305](https://github.com/voxpupuli/puppet-cups/pull/305) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.11.0 [\#304](https://github.com/voxpupuli/puppet-cups/pull/304) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.8.0 [\#303](https://github.com/voxpupuli/puppet-cups/pull/303) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.90.0 [\#302](https://github.com/voxpupuli/puppet-cups/pull/302) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 1.43.2 [\#301](https://github.com/voxpupuli/puppet-cups/pull/301) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade mdl to version 0.11.0 [\#300](https://github.com/voxpupuli/puppet-cups/pull/300) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 1.43.1 [\#299](https://github.com/voxpupuli/puppet-cups/pull/299) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.89.1 [\#297](https://github.com/voxpupuli/puppet-cups/pull/297) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade mdl to version 0.10.0 [\#296](https://github.com/voxpupuli/puppet-cups/pull/296) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.89.0 [\#295](https://github.com/voxpupuli/puppet-cups/pull/295) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rspec-puppet-facts to version 2.0.0 [\#294](https://github.com/voxpupuli/puppet-cups/pull/294) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.27.0 [\#293](https://github.com/voxpupuli/puppet-cups/pull/293) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.7.1 [\#292](https://github.com/voxpupuli/puppet-cups/pull/292) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade pdk to version 1.18.1 [\#291](https://github.com/voxpupuli/puppet-cups/pull/291) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppet-strings to version 2.5.0 [\#290](https://github.com/voxpupuli/puppet-cups/pull/290) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade overcommit to version 0.55.0 [\#289](https://github.com/voxpupuli/puppet-cups/pull/289) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.88.0 [\#288](https://github.com/voxpupuli/puppet-cups/pull/288) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 1.42.0 [\#287](https://github.com/voxpupuli/puppet-cups/pull/287) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.87.1 [\#286](https://github.com/voxpupuli/puppet-cups/pull/286) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.7.0 [\#285](https://github.com/voxpupuli/puppet-cups/pull/285) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.87.0 [\#284](https://github.com/voxpupuli/puppet-cups/pull/284) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 1.41.0 [\#283](https://github.com/voxpupuli/puppet-cups/pull/283) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade overcommit to version 0.54.0 [\#282](https://github.com/voxpupuli/puppet-cups/pull/282) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.26.0 [\#281](https://github.com/voxpupuli/puppet-cups/pull/281) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github\_api to version 0.19.0 [\#280](https://github.com/voxpupuli/puppet-cups/pull/280) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.86.0 [\#279](https://github.com/voxpupuli/puppet-cups/pull/279) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.25.0 [\#278](https://github.com/voxpupuli/puppet-cups/pull/278) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade metadata-json-lint to version 2.4.0 [\#277](https://github.com/voxpupuli/puppet-cups/pull/277) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppetlabs\_spec\_helper to version 2.15.0 [\#276](https://github.com/voxpupuli/puppet-cups/pull/276) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 1.40.0 [\#275](https://github.com/voxpupuli/puppet-cups/pull/275) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppet-blacksmith to version 6.0.0 [\#273](https://github.com/voxpupuli/puppet-cups/pull/273) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.24.0 [\#272](https://github.com/voxpupuli/puppet-cups/pull/272) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.19.2 [\#271](https://github.com/voxpupuli/puppet-cups/pull/271) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-vagrant to version 0.6.6 [\#270](https://github.com/voxpupuli/puppet-cups/pull/270) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.6.1 [\#269](https://github.com/voxpupuli/puppet-cups/pull/269) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade metadata-json-lint to version 2.3.0 [\#268](https://github.com/voxpupuli/puppet-cups/pull/268) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade pdk to version 1.18.0 [\#267](https://github.com/voxpupuli/puppet-cups/pull/267) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.85.1 [\#266](https://github.com/voxpupuli/puppet-cups/pull/266) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade overcommit to version 0.53.0 [\#265](https://github.com/voxpupuli/puppet-cups/pull/265) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.9.0 [\#264](https://github.com/voxpupuli/puppet-cups/pull/264) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade coderay to version 1.1.3 [\#263](https://github.com/voxpupuli/puppet-cups/pull/263) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 1.39.0 [\#262](https://github.com/voxpupuli/puppet-cups/pull/262) ([leoarnold](https://github.com/leoarnold))
+- Upgrade beaker-vagrant to version 0.6.5 [\#259](https://github.com/voxpupuli/puppet-cups/pull/259) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppet-blacksmith to version 5.1.0 [\#258](https://github.com/voxpupuli/puppet-cups/pull/258) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade travis to version 1.8.11 [\#257](https://github.com/voxpupuli/puppet-cups/pull/257) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.80.1 [\#256](https://github.com/voxpupuli/puppet-cups/pull/256) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade pdk to version 1.17.0 [\#255](https://github.com/voxpupuli/puppet-cups/pull/255) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.18.0 [\#254](https://github.com/voxpupuli/puppet-cups/pull/254) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade simplecov to version 0.18.5 [\#253](https://github.com/voxpupuli/puppet-cups/pull/253) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade mdl to version 0.9.0 [\#247](https://github.com/voxpupuli/puppet-cups/pull/247) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppet-strings to version 2.4.0 [\#246](https://github.com/voxpupuli/puppet-cups/pull/246) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.18.14 [\#245](https://github.com/voxpupuli/puppet-cups/pull/245) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.80.0 [\#243](https://github.com/voxpupuli/puppet-cups/pull/243) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade simplecov to version 0.18.2 [\#242](https://github.com/voxpupuli/puppet-cups/pull/242) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 1.38.1 [\#241](https://github.com/voxpupuli/puppet-cups/pull/241) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade codacy-coverage to version 2.2.1 [\#239](https://github.com/voxpupuli/puppet-cups/pull/239) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.18.13 [\#237](https://github.com/voxpupuli/puppet-cups/pull/237) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade pdk to version 1.16.0 [\#235](https://github.com/voxpupuli/puppet-cups/pull/235) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.8.0 [\#234](https://github.com/voxpupuli/puppet-cups/pull/234) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-vagrant to version 0.6.4 [\#233](https://github.com/voxpupuli/puppet-cups/pull/233) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade simplecov to version 0.18.1 [\#231](https://github.com/voxpupuli/puppet-cups/pull/231) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.79.0 [\#226](https://github.com/voxpupuli/puppet-cups/pull/226) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade overcommit to version 0.52.1 [\#225](https://github.com/voxpupuli/puppet-cups/pull/225) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade codacy-coverage to version 2.2.0 [\#224](https://github.com/voxpupuli/puppet-cups/pull/224) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.5.2 [\#223](https://github.com/voxpupuli/puppet-cups/pull/223) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.78.0 [\#222](https://github.com/voxpupuli/puppet-cups/pull/222) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-vagrant to version 0.6.3 [\#221](https://github.com/voxpupuli/puppet-cups/pull/221) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 1.37.1 [\#220](https://github.com/voxpupuli/puppet-cups/pull/220) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade overcommit to version 0.52.0 [\#219](https://github.com/voxpupuli/puppet-cups/pull/219) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade pdk to version 1.15.0 [\#218](https://github.com/voxpupuli/puppet-cups/pull/218) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rspec-puppet-facts to version 1.10.0 [\#217](https://github.com/voxpupuli/puppet-cups/pull/217) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.18.11 [\#216](https://github.com/voxpupuli/puppet-cups/pull/216) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.7.0 [\#215](https://github.com/voxpupuli/puppet-cups/pull/215) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.77.0 [\#214](https://github.com/voxpupuli/puppet-cups/pull/214) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.18.10 [\#213](https://github.com/voxpupuli/puppet-cups/pull/213) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 1.37.0 [\#212](https://github.com/voxpupuli/puppet-cups/pull/212) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.14.1 [\#208](https://github.com/voxpupuli/puppet-cups/pull/208) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.5.1 [\#206](https://github.com/voxpupuli/puppet-cups/pull/206) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rake to version 13.0.1 [\#204](https://github.com/voxpupuli/puppet-cups/pull/204) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade mdl to version 0.8.0 [\#203](https://github.com/voxpupuli/puppet-cups/pull/203) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade pdk to version 1.14.1 [\#202](https://github.com/voxpupuli/puppet-cups/pull/202) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rspec-puppet-facts to version 1.9.6 [\#201](https://github.com/voxpupuli/puppet-cups/pull/201) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.76.0 [\#200](https://github.com/voxpupuli/puppet-cups/pull/200) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade mdl to version 0.7.0 [\#199](https://github.com/voxpupuli/puppet-cups/pull/199) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade codacy-coverage to version 2.1.5 [\#198](https://github.com/voxpupuli/puppet-cups/pull/198) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade pdk to version 1.14.0 [\#194](https://github.com/voxpupuli/puppet-cups/pull/194) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.13.1 [\#193](https://github.com/voxpupuli/puppet-cups/pull/193) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade overcommit to version 0.51.0 [\#192](https://github.com/voxpupuli/puppet-cups/pull/192) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.5.0 [\#191](https://github.com/voxpupuli/puppet-cups/pull/191) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.75.0 [\#189](https://github.com/voxpupuli/puppet-cups/pull/189) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 1.36.0 [\#188](https://github.com/voxpupuli/puppet-cups/pull/188) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rake to version 13.0.0 [\#187](https://github.com/voxpupuli/puppet-cups/pull/187) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade overcommit to version 0.50.0 [\#186](https://github.com/voxpupuli/puppet-cups/pull/186) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.18.8 [\#185](https://github.com/voxpupuli/puppet-cups/pull/185) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppet-strings to version 2.3.1 [\#184](https://github.com/voxpupuli/puppet-cups/pull/184) ([depfu[bot]](https://github.com/apps/depfu))
+- New version of beaker \(4.13.0\) produced dependency conflicts [\#181](https://github.com/voxpupuli/puppet-cups/pull/181) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade simplecov to version 0.17.1 [\#180](https://github.com/voxpupuli/puppet-cups/pull/180) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppet-blacksmith to version 5.0.0 [\#179](https://github.com/voxpupuli/puppet-cups/pull/179) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.6.1 [\#178](https://github.com/voxpupuli/puppet-cups/pull/178) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade pdk to version 1.13.0 [\#177](https://github.com/voxpupuli/puppet-cups/pull/177) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade overcommit to version 0.49.1 [\#173](https://github.com/voxpupuli/puppet-cups/pull/173) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 1.35.0 [\#170](https://github.com/voxpupuli/puppet-cups/pull/170) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.74.0 [\#169](https://github.com/voxpupuli/puppet-cups/pull/169) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade pdk to version 1.12.0 [\#167](https://github.com/voxpupuli/puppet-cups/pull/167) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade redcarpet to version 3.5.0 [\#166](https://github.com/voxpupuli/puppet-cups/pull/166) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rspec-puppet-facts to version 1.9.5 [\#165](https://github.com/voxpupuli/puppet-cups/pull/165) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.4.1 [\#164](https://github.com/voxpupuli/puppet-cups/pull/164) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 1.34.0 [\#161](https://github.com/voxpupuli/puppet-cups/pull/161) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rake to version 12.3.3 [\#159](https://github.com/voxpupuli/puppet-cups/pull/159) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.18.7 [\#158](https://github.com/voxpupuli/puppet-cups/pull/158) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppet-strings to version 2.3.0 [\#157](https://github.com/voxpupuli/puppet-cups/pull/157) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.73.0 [\#156](https://github.com/voxpupuli/puppet-cups/pull/156) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade overcommit to version 0.49.0 [\#154](https://github.com/voxpupuli/puppet-cups/pull/154) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade simplecov to version 0.17.0 [\#153](https://github.com/voxpupuli/puppet-cups/pull/153) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade pdk to version 1.11.1 [\#150](https://github.com/voxpupuli/puppet-cups/pull/150) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.18.5 [\#149](https://github.com/voxpupuli/puppet-cups/pull/149) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.72.0 [\#147](https://github.com/voxpupuli/puppet-cups/pull/147) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.4.0 [\#146](https://github.com/voxpupuli/puppet-cups/pull/146) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.18.4 [\#144](https://github.com/voxpupuli/puppet-cups/pull/144) ([depfu[bot]](https://github.com/apps/depfu))
+
+## [2.2.2](https://github.com/voxpupuli/puppet-cups/tree/2.2.2) (2019-06-16)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cups/compare/2.2.1...2.2.2)
+
+**Closed issues:**
+
+- \[Feature\] Structured facts with printer capabilities [\#141](https://github.com/voxpupuli/puppet-cups/issues/141)
+- /var/log/cups/error\_log flooded with SSL errors [\#140](https://github.com/voxpupuli/puppet-cups/issues/140)
+- Module cannot be upgraded from 1.2.2 to 2.2.0 without first loading 2.0.x [\#139](https://github.com/voxpupuli/puppet-cups/issues/139)
+
+**Merged pull requests:**
+
+- Upgrade github-linguist to version 7.5.1 [\#138](https://github.com/voxpupuli/puppet-cups/pull/138) ([depfu[bot]](https://github.com/apps/depfu))
+
+## [2.2.1](https://github.com/voxpupuli/puppet-cups/tree/2.2.1) (2019-06-12)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cups/compare/2.2.0...2.2.1)
+
+**Merged pull requests:**
+
+- Upgrade overcommit to version 0.48.1 [\#137](https://github.com/voxpupuli/puppet-cups/pull/137) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.71.0 [\#135](https://github.com/voxpupuli/puppet-cups/pull/135) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.18.3 [\#134](https://github.com/voxpupuli/puppet-cups/pull/134) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 1.33.0 [\#130](https://github.com/voxpupuli/puppet-cups/pull/130) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-performance to version 1.3.0 [\#129](https://github.com/voxpupuli/puppet-cups/pull/129) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade travis to version 1.8.10 [\#127](https://github.com/voxpupuli/puppet-cups/pull/127) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.68.1 [\#124](https://github.com/voxpupuli/puppet-cups/pull/124) ([depfu[bot]](https://github.com/apps/depfu))
+
+## [2.2.0](https://github.com/voxpupuli/puppet-cups/tree/2.2.0) (2019-04-22)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cups/compare/2.1.1...2.2.0)
+
+## [2.1.1](https://github.com/voxpupuli/puppet-cups/tree/2.1.1) (2019-04-22)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cups/compare/2.1.0...2.1.1)
+
+**Implemented enhancements:**
+
+- ipptool: Unable to connect to localhost on port 631 - Transport endpoint is not connected [\#35](https://github.com/voxpupuli/puppet-cups/issues/35)
+
+**Merged pull requests:**
+
+- Upgrade github-linguist to version 7.4.0 [\#120](https://github.com/voxpupuli/puppet-cups/pull/120) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.17.0 [\#118](https://github.com/voxpupuli/puppet-cups/pull/118) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppet-strings to version 2.2.0 [\#117](https://github.com/voxpupuli/puppet-cups/pull/117) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.67.2 [\#116](https://github.com/voxpupuli/puppet-cups/pull/116) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade pdk to version 1.10.0 [\#115](https://github.com/voxpupuli/puppet-cups/pull/115) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppetlabs\_spec\_helper to version 2.14.1 [\#114](https://github.com/voxpupuli/puppet-cups/pull/114) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade overcommit to version 0.47.0 [\#112](https://github.com/voxpupuli/puppet-cups/pull/112) ([depfu[bot]](https://github.com/apps/depfu))
+
+## [2.1.0](https://github.com/voxpupuli/puppet-cups/tree/2.1.0) (2019-03-24)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cups/compare/2.0.3...2.1.0)
+
+**Implemented enhancements:**
+
+- how to share printer on the network? [\#30](https://github.com/voxpupuli/puppet-cups/issues/30)
+
+**Fixed bugs:**
+
+- Web interface not accesible [\#27](https://github.com/voxpupuli/puppet-cups/issues/27)
+
+**Closed issues:**
+
+- Availability of paperconfig is not ensured even if package\_manage is true [\#107](https://github.com/voxpupuli/puppet-cups/issues/107)
+- Issue with cups\_queue could not autoload puppet/type/cups\_queue [\#104](https://github.com/voxpupuli/puppet-cups/issues/104)
+- ServerAlias and ServerName should be configurable to avoid a cups bug [\#101](https://github.com/voxpupuli/puppet-cups/issues/101)
+- Could not autoload puppet/type/cups\_queue [\#91](https://github.com/voxpupuli/puppet-cups/issues/91)
+- Create a new release [\#81](https://github.com/voxpupuli/puppet-cups/issues/81)
+- Browsing option should be configurable [\#73](https://github.com/voxpupuli/puppet-cups/issues/73)
+- Restart failed [\#63](https://github.com/voxpupuli/puppet-cups/issues/63)
+- returned 1: lpadmin: Success [\#61](https://github.com/voxpupuli/puppet-cups/issues/61)
+- RHEL6 support? [\#36](https://github.com/voxpupuli/puppet-cups/issues/36)
+
+**Merged pull requests:**
+
+- Upgrade rubocop to version 0.66.0 [\#111](https://github.com/voxpupuli/puppet-cups/pull/111) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.3.1 [\#110](https://github.com/voxpupuli/puppet-cups/pull/110) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.6.0 [\#108](https://github.com/voxpupuli/puppet-cups/pull/108) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.65.0 [\#106](https://github.com/voxpupuli/puppet-cups/pull/106) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-vagrant to version 0.6.2 [\#105](https://github.com/voxpupuli/puppet-cups/pull/105) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.2.0 [\#102](https://github.com/voxpupuli/puppet-cups/pull/102) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.16.0 [\#100](https://github.com/voxpupuli/puppet-cups/pull/100) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 1.32.0 [\#98](https://github.com/voxpupuli/puppet-cups/pull/98) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.5.0 [\#96](https://github.com/voxpupuli/puppet-cups/pull/96) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppetlabs\_spec\_helper to version 2.13.1 [\#93](https://github.com/voxpupuli/puppet-cups/pull/93) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rake to version 12.3.2 [\#82](https://github.com/voxpupuli/puppet-cups/pull/82) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.61.1 [\#80](https://github.com/voxpupuli/puppet-cups/pull/80) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.12.0 [\#79](https://github.com/voxpupuli/puppet-cups/pull/79) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.2.0 [\#78](https://github.com/voxpupuli/puppet-cups/pull/78) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.1.2 [\#75](https://github.com/voxpupuli/puppet-cups/pull/75) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-vagrant to version 0.6.0 [\#74](https://github.com/voxpupuli/puppet-cups/pull/74) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.1.0 [\#72](https://github.com/voxpupuli/puppet-cups/pull/72) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppetlabs\_spec\_helper to version 2.12.0 [\#71](https://github.com/voxpupuli/puppet-cups/pull/71) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.8.0 [\#70](https://github.com/voxpupuli/puppet-cups/pull/70) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 1.30.1 [\#69](https://github.com/voxpupuli/puppet-cups/pull/69) ([depfu[bot]](https://github.com/apps/depfu))
+- Adapt to Puppet 6 [\#68](https://github.com/voxpupuli/puppet-cups/pull/68) ([leoarnold](https://github.com/leoarnold))
+- Upgrade rubocop to version 0.60.0 [\#67](https://github.com/voxpupuli/puppet-cups/pull/67) ([depfu[bot]](https://github.com/apps/depfu))
+- New version of beaker-puppet \(1.7.0\) produced dependency conflicts [\#66](https://github.com/voxpupuli/puppet-cups/pull/66) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker to version 4.1.0 [\#65](https://github.com/voxpupuli/puppet-cups/pull/65) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rspec-puppet-facts to version 1.9.2 [\#64](https://github.com/voxpupuli/puppet-cups/pull/64) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 1.30.0 [\#62](https://github.com/voxpupuli/puppet-cups/pull/62) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade github-linguist to version 7.0.0 [\#60](https://github.com/voxpupuli/puppet-cups/pull/60) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppetlabs\_spec\_helper to version 2.11.0 [\#59](https://github.com/voxpupuli/puppet-cups/pull/59) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.59.2 [\#58](https://github.com/voxpupuli/puppet-cups/pull/58) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade codacy-coverage to version 2.1.0 [\#57](https://github.com/voxpupuli/puppet-cups/pull/57) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.59.1 [\#55](https://github.com/voxpupuli/puppet-cups/pull/55) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade beaker-puppet to version 1.6.0 [\#54](https://github.com/voxpupuli/puppet-cups/pull/54) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop to version 0.59.0 [\#50](https://github.com/voxpupuli/puppet-cups/pull/50) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade overcommit to version 0.46.0 [\#49](https://github.com/voxpupuli/puppet-cups/pull/49) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 1.29.1 [\#48](https://github.com/voxpupuli/puppet-cups/pull/48) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppetlabs\_spec\_helper to version 2.10.0 [\#47](https://github.com/voxpupuli/puppet-cups/pull/47) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade rubocop-rspec to version 1.29.0 [\#46](https://github.com/voxpupuli/puppet-cups/pull/46) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade codacy-coverage to version 2.0.1 [\#45](https://github.com/voxpupuli/puppet-cups/pull/45) ([depfu[bot]](https://github.com/apps/depfu))
+- New version of beaker \(4.0.0\) produced dependency conflicts [\#43](https://github.com/voxpupuli/puppet-cups/pull/43) ([depfu[bot]](https://github.com/apps/depfu))
+- Upgrade puppet-strings to version 2.0.0 [\#40](https://github.com/voxpupuli/puppet-cups/pull/40) ([depfu[bot]](https://github.com/apps/depfu))
+- New version of github-linguist \(6.0.0\) produced dependency conflicts [\#33](https://github.com/voxpupuli/puppet-cups/pull/33) ([depfu[bot]](https://github.com/apps/depfu))
+
+## [2.0.3](https://github.com/voxpupuli/puppet-cups/tree/2.0.3) (2018-01-17)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cups/compare/2.0.2...2.0.3)
+
+**Fixed bugs:**
+
+- Cups options, quote escaping [\#32](https://github.com/voxpupuli/puppet-cups/issues/32)
+- make\_and\_model value sometimes expects quotes to run correctly [\#29](https://github.com/voxpupuli/puppet-cups/issues/29)
+
+## [2.0.2](https://github.com/voxpupuli/puppet-cups/tree/2.0.2) (2017-11-22)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cups/compare/2.0.1...2.0.2)
+
+**Fixed bugs:**
+
+- cups\_queue fails when trying to manage an ipp:// queue [\#28](https://github.com/voxpupuli/puppet-cups/issues/28)
+
+## [2.0.1](https://github.com/voxpupuli/puppet-cups/tree/2.0.1) (2017-11-08)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cups/compare/2.0.0...2.0.1)
+
+## [2.0.0](https://github.com/voxpupuli/puppet-cups/tree/2.0.0) (2017-11-01)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cups/compare/1.2.2...2.0.0)
+
+**Implemented enhancements:**
+
+- Cannot set ErrorPolicy using this module [\#25](https://github.com/voxpupuli/puppet-cups/issues/25)
+- missed packages [\#22](https://github.com/voxpupuli/puppet-cups/issues/22)
+- Problem with printer driver. [\#20](https://github.com/voxpupuli/puppet-cups/issues/20)
+- AuthInfoRequired [\#13](https://github.com/voxpupuli/puppet-cups/issues/13)
+- Issue recreating existing printers [\#12](https://github.com/voxpupuli/puppet-cups/issues/12)
+- Cannot set options in cupsd.conf [\#7](https://github.com/voxpupuli/puppet-cups/issues/7)
+- OPERATION get-printer-attributes fails successfully? [\#6](https://github.com/voxpupuli/puppet-cups/issues/6)
+
+**Closed issues:**
+
+- Module affects macos sierra clients [\#24](https://github.com/voxpupuli/puppet-cups/issues/24)
+- Ubuntu 16.10 Ruby syntax error [\#21](https://github.com/voxpupuli/puppet-cups/issues/21)
+- Documentation error on PuppetForge [\#18](https://github.com/voxpupuli/puppet-cups/issues/18)
+- Getter for 'job-sheets-default' should strip quotes [\#14](https://github.com/voxpupuli/puppet-cups/issues/14)
+- Ability to control cups service and package installation [\#11](https://github.com/voxpupuli/puppet-cups/issues/11)
+- manual added printers should not get deleted [\#10](https://github.com/voxpupuli/puppet-cups/issues/10)
+- It would be nice to be able to install drivers using the open printing module [\#9](https://github.com/voxpupuli/puppet-cups/issues/9)
+- How to set purge\_unmanaged\_queues =\> 'true' [\#8](https://github.com/voxpupuli/puppet-cups/issues/8)
+- Fails on Ubuntu 16.10 Yakkety [\#19](https://github.com/voxpupuli/puppet-cups/issues/19)
+
+## [1.2.2](https://github.com/voxpupuli/puppet-cups/tree/1.2.2) (2016-05-24)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cups/compare/1.2.1...1.2.2)
+
+**Fixed bugs:**
+
+- cups-ipp-utils should be installed on Ubuntu 16.04 [\#4](https://github.com/voxpupuli/puppet-cups/issues/4)
+
+**Closed issues:**
+
+- Cups\_queue defaults not used on Ubuntu 16.04 [\#5](https://github.com/voxpupuli/puppet-cups/issues/5)
+
+## [1.2.1](https://github.com/voxpupuli/puppet-cups/tree/1.2.1) (2016-05-17)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cups/compare/1.2.0...1.2.1)
+
+**Implemented enhancements:**
+
+- Feature request: take printers as argument rather than explicit hiera lookup [\#2](https://github.com/voxpupuli/puppet-cups/issues/2)
+
+**Closed issues:**
+
+- Feature Request: service tunables [\#3](https://github.com/voxpupuli/puppet-cups/issues/3)
+
+## [1.2.0](https://github.com/voxpupuli/puppet-cups/tree/1.2.0) (2016-05-12)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cups/compare/1.1.0...1.2.0)
+
+## [1.1.0](https://github.com/voxpupuli/puppet-cups/tree/1.1.0) (2016-04-10)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cups/compare/1.0.2...1.1.0)
+
+## [1.0.2](https://github.com/voxpupuli/puppet-cups/tree/1.0.2) (2016-03-19)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cups/compare/1.0.0...1.0.2)
+
+## [1.0.0](https://github.com/voxpupuli/puppet-cups/tree/1.0.0) (2016-03-07)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cups/compare/b5533caa32d30fe654bf3e0c6367d623c258da55...1.0.0)
+
+
+
+\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)*

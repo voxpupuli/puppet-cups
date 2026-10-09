@@ -1,12 +1,12 @@
 {
-  "name": "leoarnold-cups",
+  "name": "voxpupuli-cups",
   "version": "3.0.1-rc0",
-  "author": "Leo Arnold",
+  "author": "Vox Pupuli",
   "summary": "Puppet module for the Common Unix Printing System (CUPS)",
   "license": "MIT",
-  "source": "https://github.com/leoarnold/puppet-cups",
-  "project_page": "https://github.com/leoarnold/puppet-cups",
-  "issues_url": "https://github.com/leoarnold/puppet-cups/issues",
+  "source": "https://github.com/voxpupuli/puppet-cups",
+  "project_page": "https://github.com/voxpupuli/puppet-cups",
+  "issues_url": "https://github.com/voxpupuli/puppet-cups/issues",
   "tags": [
     "CUPS",
     "printer",
@@ -67,7 +67,5 @@
       "name": "openvox",
       "version_requirement": ">= 8.19.0 < 9.0.0"
     }
-  ],
-  "data_provider": null,
-  "pdk-version": "1.9.1"
+  ]
 }

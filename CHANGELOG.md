@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.0.1](https://github.com/voxpupuli/puppet-cups/tree/v3.0.1) (2026-10-09)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-cups/compare/v3.0.0...v3.0.1)
+
+**Merged pull requests:**
+
+- fix\(chore\): Switch from leoarnold to voxpupuli. [\#560](https://github.com/voxpupuli/puppet-cups/pull/560) ([tuxmea](https://github.com/tuxmea))
+
 ## [v3.0.0](https://github.com/voxpupuli/puppet-cups/tree/v3.0.0) (2026-10-09)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-cups/compare/2.2.2...v3.0.0)

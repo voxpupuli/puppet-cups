@@ -20,7 +20,7 @@
 
 ### Resource types
 
-* [`cups_queue`](#cups_queue): Installs and manages CUPS queues.  Printers: Minimal manifest examples      cups_queue { 'MinimalRaw':       ensure => 'printer',       uri  
+* [`cups_queue`](#cups_queue): Installs and manages CUPS queues.  Printers: Minimal manifest examples      cups_queue { 'MinimalRaw':       ensure => 'printer',       uri
 
 ## Classes
 
@@ -751,4 +751,3 @@ The recommended location for your PPD files is `/usr/share/cups/model/` or `/usr
 
 The specific backend to use for this `cups_queue` resource. You will seldom need to specify this --- Puppet will usually
 discover the appropriate provider for your platform.
-

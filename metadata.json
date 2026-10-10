@@ -1,6 +1,6 @@
 {
   "name": "puppet-cups",
-  "version": "3.0.2-rc0",
+  "version": "3.0.2",
   "author": "Vox Pupuli",
   "summary": "Puppet module for the Common Unix Printing System (CUPS)",
   "license": "MIT",

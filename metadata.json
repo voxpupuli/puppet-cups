@@ -1,5 +1,5 @@
 {
-  "name": "voxpupuli-cups",
+  "name": "puppet-cups",
   "version": "3.0.2-rc0",
   "author": "Vox Pupuli",
   "summary": "Puppet module for the Common Unix Printing System (CUPS)",

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def add_printers_to_classes(class_members)
   add_printers('Dummy')
   class_members.each_key do |classname|

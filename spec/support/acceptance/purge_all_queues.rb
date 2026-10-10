@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def purge_all_queues
   request = '{
     OPERATION CUPS-Get-Printers

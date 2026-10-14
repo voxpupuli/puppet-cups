@@ -310,7 +310,7 @@ Puppet::Type.type(:cups_queue).provide(:cups) do
     answer = {}
 
     lpoptions('-p', name, '-l').each_line do |line|
-      result = %r{\A(?<key>\w+)/.*:.*\*(?<value>\w+)}.match(line)
+      result = %r{\A(?<key>\w+)/.*:.*\*(?<value>\S+)}.match(line)
       answer[result[:key]] = result[:value] if result
     end
 

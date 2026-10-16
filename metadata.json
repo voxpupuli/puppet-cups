@@ -17,8 +17,8 @@
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "8",
-        "9"
+        "9",
+        "10"
       ]
     },
     {
@@ -31,7 +31,9 @@
     {
       "operatingsystem": "Fedora",
       "operatingsystemrelease": [
-        "40"
+        "43",
+        "44",
+        "45"
       ]
     },
     {

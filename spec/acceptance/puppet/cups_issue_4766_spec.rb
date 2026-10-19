@@ -4,9 +4,9 @@ require 'spec_helper_acceptance'
 
 # See also: https://github.com/leoarnold/puppet-cups/issues/28
 RSpec.describe 'Circumventing CUPS issue #4766' do
-  before(:all) do
-    ensure_cups_is_running
-  end
+  #before(:all) do
+  #  ensure_cups_is_running
+  #end
 
   context 'when ensuring a queue' do
     context 'when is shared via IPP by some remote host' do

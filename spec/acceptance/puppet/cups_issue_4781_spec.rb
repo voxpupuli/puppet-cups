@@ -13,9 +13,9 @@ RSpec.describe 'Circumventing CUPS issue #4781' do
     MANIFEST
   end
 
-  before(:all) do
-    ensure_cups_is_running
-  end
+  #before(:all) do
+  #  ensure_cups_is_running
+  #end
 
   context 'when ensuring a queue' do
     context 'when the queue is absent' do

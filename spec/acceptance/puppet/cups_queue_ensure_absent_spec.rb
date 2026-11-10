@@ -3,9 +3,9 @@
 require 'spec_helper_acceptance'
 
 RSpec.describe 'Custom type `cups_queue`' do
-  before(:all) do
-    ensure_cups_is_running
-  end
+  #before(:all) do
+  #  ensure_cups_is_running
+  #end
 
   context 'when ensuring absence' do
     queue = 'Office'

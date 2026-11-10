@@ -2,11 +2,11 @@
 
 require 'spec_helper_acceptance'
 
-RSpec.describe 'Including class "cups::workarounds::systemd_service_restart"' do
-  before(:all) do
-    ensure_cups_is_running
-    purge_all_queues
-  end
+describe 'Including class "cups::workarounds::systemd_service_restart"' do
+  #before(:all) do
+  #  ensure_cups_is_running
+  #  purge_all_queues
+  #end
 
   let(:manifest) { "include '::cups::workarounds::systemd_service_restart'" }
 

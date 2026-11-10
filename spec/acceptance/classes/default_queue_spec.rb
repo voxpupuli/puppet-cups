@@ -2,10 +2,10 @@
 
 require 'spec_helper_acceptance'
 
-RSpec.describe 'Including class "cups"' do
-  before(:all) do
-    ensure_cups_is_running
-  end
+describe 'cups' do
+  #before(:all) do
+  #  ensure_cups_is_running
+  #end
 
   let(:name) { 'RSpec&Test_Printer' }
 

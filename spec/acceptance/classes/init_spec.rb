@@ -2,7 +2,7 @@
 
 require 'spec_helper_acceptance'
 
-RSpec.describe 'Including class "cups"' do
+describe 'cups' do
   describe 'default class inclusion' do
     context 'when applying' do
       let(:manifest) { "include '::cups'" }

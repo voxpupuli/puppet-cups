@@ -7,12 +7,16 @@
   "source": "https://github.com/voxpupuli/puppet-cups",
   "project_page": "https://github.com/voxpupuli/puppet-cups",
   "issues_url": "https://github.com/voxpupuli/puppet-cups/issues",
-  "tags": [
-    "CUPS",
-    "printer",
-    "printing"
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 5.0.0 < 10.0.0"
+    },
+    {
+      "name": "puppet/systemd",
+      "version_requirement": ">= 5.0.0 < 10.0.0"
+    }
   ],
-  "dependencies": [],
   "operatingsystem_support": [
     {
       "operatingsystem": "CentOS",

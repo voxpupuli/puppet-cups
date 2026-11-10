@@ -1,2 +1,9 @@
-.github/workflows/ci.yml:
-  acceptance_tests: false
+---
+.puppet-lint.rc:
+  enabled_lint_checks:
+    - parameter_documentation
+    - parameter_types
+.rubocop.yml:
+  extra:
+    RSpec/MessageSpies:
+      EnforcedStyle: receive

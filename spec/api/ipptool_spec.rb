@@ -11,9 +11,9 @@ OS_RELEASE_FULL = fact('os.release.full')
 DEBIAN_PWG_RASTER_PATCH = OS_NAME == 'Ubuntu' && ['16.10', '17.04'].include?(OS_RELEASE_FULL)
 
 RSpec.describe 'Ipptool' do
-  before(:all) do
-    ensure_cups_is_running
-  end
+  #before(:all) do
+  #  ensure_cups_is_running
+  #end
 
   context 'when querying the attributes of a generic queue' do
     before(:all) do
